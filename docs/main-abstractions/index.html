@@ -251,9 +251,9 @@ network addresses and tags, to be utilized by <code>Transport</code> implementat
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftRole.java"
 target="_blank"><code>RaftRole</code></a> denotes the roles of <code>RaftNode</code>s as specified in
 the Raft consensus algorithm. Currently, MicroRaft implements the main roles
-defined in the paper: <code>LEADER</code>, <code>CANDIDATE</code>, and <code>FOLLOWER</code>. The popular
-extension roles, such as <code>LEARNER</code> and <code>WITNESS</code>, are not implemented yet, but
-they are on the roadmap.</p>
+defined in the paper: <code>LEADER</code>, <code>CANDIDATE</code>, and <code>FOLLOWER</code>. Moreover, it also
+implements an extension adding non-voting members: <code>LEARNER</code>. The <code>WITNESS</code> role
+is not implemented yet, but it's on the roadmap.</p>
 <h2 id="raftnodestatus"><code>RaftNodeStatus</code></h2>
 <p><a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNodeStatus.java"
