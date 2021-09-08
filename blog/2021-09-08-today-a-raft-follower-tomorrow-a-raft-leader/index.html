@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Ensar Basri Kahveci">
+        <link rel="canonical" href="https://microraft.io/blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>September 8, 2021 | Today a Raft Follower, Tomorrow a Raft Leader - MicroRaft</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-485423-8', 'MicroRaft');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">MicroRaft</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../docs/setup/" class="dropdown-item">Setup</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/main-abstractions/" class="dropdown-item">Main Abstractions</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/configuration/" class="dropdown-item">Configuration</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/tutorial-building-an-atomic-register/" class="dropdown-item">Tutorial: Building an Atomic Register</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/resiliency-and-fault-tolerance/" class="dropdown-item">Resiliency and Fault Tolerance</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/monitoring/" class="dropdown-item">Monitoring</a>
+</li>
+                                    
+<li>
+    <a href="../../javadoc/0.1/index.html" class="dropdown-item">Javadoc 0.1</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/release-notes/" class="dropdown-item">Release Notes</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/roadmap/" class="dropdown-item">Roadmap</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">September 8, 2021 | Today a Raft Follower, Tomorrow a Raft Leader</a>
+</li>
+                                    
+<li>
+    <a href="../2021-09-03-introducing-microraft/" class="dropdown-item">September 3, 2021 | Introducing MicroRaft</a>
+</li>
+                                    
+<li>
+    <a href=".." class="dropdown-item">All Blog Posts</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="https://github.com/MicroRaft/MicroRaft" class="nav-link">Github</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="https://twitter.com/MicroRaft" class="nav-link">Twitter</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../../docs/roadmap/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../2021-09-03-introducing-microraft/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#today-a-raft-follower-tomorrow-a-raft-leader" class="nav-link">Today a Raft follower, tomorrow a Raft leader</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#separating-the-leader-failure-detection-and-election-timeouts" class="nav-link">Separating the leader failure detection and election timeouts</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#dealing-with-disruptive-followers" class="nav-link">Dealing with disruptive followers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#stepping-down-an-overthrown-leader" class="nav-link">Stepping down an overthrown leader</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#sum-up" class="nav-link">Sum up</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="today-a-raft-follower-tomorrow-a-raft-leader">Today a Raft follower, tomorrow a Raft leader</h1>
+<p>We start <em>the ins and outs of MicroRaft</em> series with diving deep into how
+MicroRaft detects and acts upon leader failures.</p>
+<p>Readers are expected to have an understanding of how leader election works in
+Raft. <a href="https://raft.github.io/" target="_blank">Raft paper</a> already
+does a great job on explaining its details and safety properties. In addition,
+there is a number of visual demonstrations and blog posts available on the web,
+for example <a href="http://thesecretlivesofdata.com/raft/" target="_blank">The
+Secret Lives of Data</a>.</p>
+<p>In this blog post, we follow <a
+href="https://microraft.io/docs/main-abstractions/" target="_blank" >the
+terminology used in MicroRaft</a>. In summary, a <em>Raft node</em> runs the Raft
+consensus algorithm as a member of a <em>Raft group</em>. A Raft group is a cluster of
+Raft nodes that behave as a <em>replicated state machine</em>. <a
+href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"
+target="_blank"><code>RaftNode</code></a>  interface contains APIs for handling client
+requests, Raft RPCs, etc.</p>
+<p><em>"Today a reader, tomorrow a leader." -- Margaret Fuller</em></p>
+<p>Raft is a leader-based consensus algorithm. It solves the consensus problem in
+the context of replicated state machines. It starts with electing a leader among
+servers. A new leader is elected if the current leader fails. The leader becomes
+responsible for managing a replicated log. Clients send their operations,
+requests in other words, to the leader. Upon receiving an operation, the leader
+first ensures that the operation is appended to the local logs of sufficient
+number (i.e., more than half) of servers, then commits the operation. Raft
+guarantees that each server ends up with the same final state by committing and
+executing the same set of operations in the same order.</p>
+<p>Since availability of a Raft cluster relies on having a functional leader,
+graceful handling of leader failures becomes very important for robustness of a
+Raft implementation.</p>
+<h2 id="separating-the-leader-failure-detection-and-election-timeouts">Separating the leader failure detection and election timeouts</h2>
+<p>Raft's leader election logic runs in 2 steps. First, Raft nodes decide that
+there is no live leader in the Raft cluster. A leader Raft node sends periodic
+heartbeats to its followers to denote its liveliness. If a follower does not
+hear from the leader for <em>some time</em>, it assumes that the leader has crashed.
+The second step starts here to elect a new leader. The follower moves to the
+next term with the candidate role, votes for itself, and asks votes from the
+other servers in the Raft cluster. If it cannot collect the majority votes or
+hears from a new leader for <em>some time</em>, it starts a new leader election round
+for the next term. This situation is called <em>split vote</em>.</p>
+<p>Raft uses a single timeout value for both of these steps: <em>election timeout</em>. In
+order to prevent split vote situations, a bit of randomness is added to election
+timeouts so that followers do not switch to the candidate role at the same time,
+hence they can vote for each other. The Raft paper states that an election
+timeout around half a second would be generally sufficient to prevent
+unnecessary leader elections and split vote situations.</p>
+<p>Our experience is a short election timeout value works fine for electing a new
+leader promptly after an actual leader failure. However, it could also cause
+unnecessary leader elections. A leader Raft node could fail to send heartbeats
+on time because of a GC pause or a long-running user operation occupying the
+Raft thread. Its CPU and network resources could be also congested by other Raft
+nodes belonging to different Raft groups in a <a
+href="https://www.cockroachlabs.com/blog/scaling-raft/" target="_blank"><em>Multi
+Raft</em></a> deployment. In such cases, followers may decide to start a new leader
+election round while the leader is actually alive. Even if electing a new leader
+does not hurt correctness, it may not necessarily improve availability. A Raft
+group does not handle new requests during leader elections, and it usually takes
+some time for clients to discover the new leader. If the previous leader was
+slowed down by a long-running operation, retrying the operation on the new
+leader could make more harm on availability. To eliminate unnecessary leader
+elections, we can simply use a larger election timeout, but then leader
+elections can get delayed in case of split vote, even if it is a low
+probability. For instance, if election timeout is 10 seconds, it takes 10
+seconds to trigger leader election, and if it ends up with split vote, it takes
+more than 20 seconds to elect a new leader.</p>
+<p>MicroRaft chooses a more verbose approach and uses <a
+href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftConfig.java"
+target="_blank">2 timeout values</a> for leader election: <em>leader heartbeat
+timeout</em> and <em>leader election timeout</em>. Leader heartbeat timeout is the duration
+for a follower to detect failure of the current leader and trigger leader
+election. Leader election timeout is the duration candidates wait before giving
+up a leader election round and move to the next term for a new round. These 2
+timeout values allow the 2 steps of Raft's leader election logic to be tuned
+separately. Their default values are 10 seconds and 1 second respectively. When
+a leader crashes, it takes 10 seconds to trigger leader election. If the split
+vote situation occurs, a new leader election round starts after just 1 second,
+and the leader election logic completes after 11-12 seconds.</p>
+<p>There is also a third configuration parameter in MicroRaft: <em>leader heartbeat
+period</em>. It is the period for a leader Raft node to send heartbeats to its
+followers in order to denote its liveliness. By default, a leader Raft node runs
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/impl/task/HeartbeatTask.java" target="_blank">a task</a> every 2 seconds. This task sends a heartbeat to each follower which did
+not receive an <a
+href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/AppendEntriesRequest.java"
+target="_blank"><code>AppendEntriesRequest</code></a> in the last 2 seconds.</p>
+<h2 id="dealing-with-disruptive-followers">Dealing with disruptive followers</h2>
+<p>Raft's term and leader election logics can create some flakiness in some network
+failure cases. Consider a scenario where a follower Raft node disconnects from
+the rest of the Raft group, as Figure 1 shows. When the leader heartbeat timeout
+elapses, the follower moves to the next term and triggers leader election. Since
+it is not able to communicate with the other Raft nodes, after the leader
+election timeout elapses, it moves to the next term again and triggers another
+round of leader election. When it connects back to the rest of the Raft group,
+it causes the other Raft nodes, including the healthy leader, to move to its own
+term. The leader also steps down to the follower role while moving to the new
+term, and probably becomes the leader again in the next leader election round.
+Long story short, a temporarily-disconnected follower may hurt availability of
+the Raft group by causing unnecessary leader elections. Section 4.2.3 of <a
+href="https://web.stanford.edu/~ouster/cgi-bin/papers/OngaroPhD.pdf"
+target="_blank">the Raft dissertation</a> describes a membership change scenario
+that could lead to the same problem.</p>
+<p><img alt="Figure 1" src="https://microraft.io/img/blog2-fig1.png" /></p>
+<p>Figure 1</p>
+<p>The Raft dissertation sketches out a solution to this problem, and Henrik Ingo
+details the solution in his <a
+href="https://www.openlife.cc/sites/default/files/php_uploads/4-modifications-for-Raft-consensus.pdf"
+target="_blank">Four modifications of the Raft consensus algorithm</a> work. The
+idea is to add <em>a pre-voting</em> step before triggering leader election. MicroRaft
+implements this. When the leader heartbeat timeout elapses, a follower Raft node
+sends <a
+href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/PreVoteRequest.java"
+target="_blank"><code>PreVoteRequest</code></a> to other Raft nodes for the next term
+without actually incrementing its local term. Other Raft nodes respond as if it
+was an actual <em>RequestVote RPC</em>. They grant a <em>non-binding pre-vote</em> only if the
+requesting follower's term is greater than or equal to their local term and the
+requesting follower's log is sufficiently up-to-date. If the disconnected Raft
+node collects the majority <em>pre-votes</em>, it increments the term and triggers an
+actual leader election round. Otherwise, it retries pre-voting for the same term
+after the leader election timeout elapses. If we integrate this solution to the
+failure scenario described above, the disruptive Raft node retries pre-voting
+until it connects back to the other Raft nodes. Then, it rediscovers the healthy
+Raft leader in the same term and cancels pre-voting.</p>
+<p>Let's make a slight modification in our failure scenario. In Figure 2, our
+unlucky Raft node disconnects only from the leader and can still communicate
+with the other Raft nodes. If the leader does not append a new entry to the log,
+the disconnected follower can succeed pre-voting, trigger an actual leader
+election round on the next term, and become the new leader. So pre-voting does
+not help to prevent an unnecessary leader election in this case and we get an
+unavailability window.</p>
+<p><img alt="Figure 2" src="https://microraft.io/img/blog2-fig2.png" /></p>
+<p>Figure 2</p>
+<p>MicroRaft resolves this issue by relying on the heartbeat mechanism. Raft nodes
+ignore pre-vote requests if they think there is a live leader. A leader is
+considered alive if it has sent a heartbeat in the last leader heartbeat timeout
+duration. This solution is called <em>leader stickiness</em> and explained in both the
+Raft dissertation and Henrik Ingo's work.</p>
+<h2 id="stepping-down-an-overthrown-leader">Stepping down an overthrown leader</h2>
+<p>Figure 3 demonstrates another case which is handled by MicroRaft to prevent
+partial unavailability in case of network problems. Suppose a leader Raft node
+is partitioned from the rest of its Raft group. Eventually, the other Raft nodes
+elect a new leader among themselves. However, since they are disconnected from
+the old leader, the old leader cannot observe the new term and leader
+information. This situation causes clients connected to the old leader to
+observe unavailability because the old leader neither fails nor commits their
+requests.</p>
+<p><img alt="Figure 3" src="https://microraft.io/img/blog2-fig3.png" /></p>
+<p>Figure 3</p>
+<p>MicroRaft resolves this issue by relying on the heartbeat mechanism in a way
+similar to the leader stickiness solution described above. The solution is also
+described in Section 6.2 of the Raft dissertation. It is called <em>Check Quorum</em>.
+A leader Raft node keeps track of <em>AppendEntries RPC</em> responses sent by
+followers. It steps down if the leader heartbeat timeout elapses before it
+receives <em>AppendEntries RPC</em> responses from the majority of the Raft group. It
+also fails pending requests with <a
+href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/IndeterminateStateException.java"
+target="_blank"><code>IndeterminateStateException</code></a> and new requests with <a
+href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/NotLeaderException.java"
+target="_blank"><code>NotLeaderException</code></a> so that clients can retry their
+requests on the other Raft nodes.</p>
+<h2 id="sum-up">Sum up</h2>
+<p>MicroRaft's leader failure handling behavior is summarized below.</p>
+<ul>
+<li>
+<p>MicroRaft realizes leader election logic with 2 configuration parameters,
+  <em>leader heartbeat timeout</em> and <em>leader election timeout</em>. Leader heartbeat
+  timeout is the duration for a follower to detect failure of the current leader
+  and trigger leader election. Leader election timeout is the duration
+  candidates wait before giving up a leader election round and move to the next
+  term for a new round. These 2 timeout values can be tuned separately to
+  minimize unnecessary leader elections and delays caused by split votes.</p>
+</li>
+<li>
+<p>Pre-voting and leader stickiness prevent unavailability when there are
+  disruptive Raft nodes in a Raft group. MicroRaft ensures that a new leader
+  election is started only if the majority of the Raft group thinks the current
+  leader has failed.</p>
+</li>
+<li>
+<p>With <em>Check Quorum</em>, if a leader Raft node does not notice that it has been
+  taken down by another Raft node, it eventually steps down after the leader
+  heartbeat timeout elapses, hence allows clients to retry their requests on the
+  other Raft nodes and discover the new leader.</p>
+</li>
+</ul>
+<p>You can also check out <a
+href="https://decentralizedthoughts.github.io/2020-12-12-raft-liveness-full-omission/"
+target="_blank">Heidi Howard and Ittai Abraham's great post</a> on the same
+topic.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>MicroRaft, 2021. Open-sourced by <a href="https://twitter.com/metanet" target="_blank">Ensar Basri Kahveci</a>.<br/>MicroRaft is not affiliated, associated, endorsed by, or in any way officially connected with<br/>Facebook, or any of its subsidiaries or its affiliates.</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
