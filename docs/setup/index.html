@@ -12,11 +12,11 @@
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -71,15 +71,7 @@
 </li>
                                     
 <li>
-    <a href="../../javadoc/0.4-SNAPSHOT/index.html" class="dropdown-item">Javadoc 0.4-SNAPSHOT</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.3/index.html" class="dropdown-item">Javadoc 0.3</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.1/index.html" class="dropdown-item">Javadoc 0.1</a>
+    <a href="../../javadoc/0.4/index.html" class="dropdown-item">Javadoc 0.4</a>
 </li>
                                     
 <li>
@@ -174,27 +166,24 @@
 <h1 id="setup">Setup</h1>
 <p>MicroRaft JARs are available via <a href="https://jitpack.io/#MicroRaft/MicroRaft">Jitpack</a>. If you are
 using Maven, just add the following lines to your your <code>pom.xml</code>:</p>
-<pre><code class="xml">&lt;repositories&gt;
+<pre><code class="language-xml">&lt;repositories&gt;
     &lt;repository&gt;
         &lt;id&gt;jitpack.io&lt;/id&gt;
         &lt;url&gt;https://jitpack.io&lt;/url&gt;
     &lt;/repository&gt;
 &lt;/repositories&gt;
 </code></pre>
-
-<pre><code class="xml">&lt;dependency&gt;
+<pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;com.github.MicroRaft&lt;/groupId&gt;
     &lt;artifactId&gt;MicroRaft&lt;/artifactId&gt;
     &lt;version&gt;v0.1&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
-
 <p>If you don't have Maven but want to build the project on your machine, <code>mvnw</code> is
 available in the MicroRaft repository. Just hit the following command on your
 terminal.</p>
 <pre><code>gh repo clone MicroRaft/MicroRaft &amp;&amp; cd MicroRaft &amp;&amp; ./mvnw clean package
 </code></pre>
-
 <p>Then you can get the JARs from <code>microraft/target</code>, <code>microraft-hocon/target</code>, and
 <code>microraft-yaml/target</code> directories.</p>
 <hr />
@@ -233,16 +222,13 @@ MicroRaft?</p></div>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>

@@ -12,11 +12,11 @@
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -71,15 +71,7 @@
 </li>
                                     
 <li>
-    <a href="../../javadoc/0.4-SNAPSHOT/index.html" class="dropdown-item">Javadoc 0.4-SNAPSHOT</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.3/index.html" class="dropdown-item">Javadoc 0.3</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.1/index.html" class="dropdown-item">Javadoc 0.1</a>
+    <a href="../../javadoc/0.4/index.html" class="dropdown-item">Javadoc 0.4</a>
 </li>
                                     
 <li>
@@ -282,10 +274,9 @@ leader. Let's write our first test.</p>
 <script src="https://gist.github.com/metanet/7e0a3160192994373bec225cd351297d.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash"> $ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash"> $ gh repo clone MicroRaft/MicroRaft
  $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.tutorial.LeaderElectionTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/LeaderElectionTest.java"
 target="_blank">MicroRaft Github repository</a>.</p>
@@ -320,7 +311,7 @@ Please note that this method offers the discovery functionality to find the
 leader. It just waits until all Raft nodes report the same Raft node as the
 leader.</p>
 <p>Let's run this code and see the logs. The logs start like following:</p>
-<pre><code class="text">23:54:38.121 INFO - [RaftNode] node2&lt;default&gt; Starting for default with 3 members: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}]
+<pre><code class="language-text">23:54:38.121 INFO - [RaftNode] node2&lt;default&gt; Starting for default with 3 members: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}]
 23:54:38.121 INFO - [RaftNode] node3&lt;default&gt; Starting for default with 3 members: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}]
 23:54:38.121 INFO - [RaftNode] node1&lt;default&gt; Starting for default with 3 members: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}]
 23:54:38.123 INFO - [RaftNode] node2&lt;default&gt; Status is set to ACTIVE
@@ -348,7 +339,6 @@ leader.</p>
 23:54:38.125 INFO - [RaftNode] node2&lt;default&gt; started.
 23:54:38.125 INFO - [RaftNode] node1&lt;default&gt; started.
 </code></pre>
-
 <p>Each RaftNode first prints the id and initial member list of the Raft group.
 When we call <code>RaftNode.start()</code>, they switch to the <code>RaftNodeStatus.ACTIVE</code>
 status and print a summary of the Raft group, including the member list. Each
@@ -357,7 +347,7 @@ log is printed so that we can follow what is going on.</p>
 <p>After this part, our Raft nodes start a leader election. Raft can be very chatty
 during leader elections. For the sake of simplicity, we will just skip the
 leader election logs and look at the final status.</p>
-<pre><code class="text">23:54:39.141 INFO - [VoteResponseHandler] node3&lt;default&gt; Vote granted from node1 for term: 2, number of votes: 2, majority: 2
+<pre><code class="language-text">23:54:39.141 INFO - [VoteResponseHandler] node3&lt;default&gt; Vote granted from node1 for term: 2, number of votes: 2, majority: 2
 23:54:39.141 INFO - [VoteResponseHandler] node3&lt;default&gt; We are the LEADER!
 23:54:39.149 INFO - [AppendEntriesRequestHandler] node1&lt;default&gt; Setting leader: node3
 23:54:39.149 INFO - [RaftNode] node3&lt;default&gt; Raft Group Members {groupId: default, size: 3, term: 2, logIndex: 0} [
@@ -379,7 +369,6 @@ leader election logs and look at the final status.</p>
     node3 - LEADER
 ] reason: ROLE_CHANGE
 </code></pre>
-
 <p>As you see, we managed to elect our leader in the 2nd term. It means that we had
 a split-vote situation in the 1st term. This is quite normal because in our test
 code we start our Raft nodes at the same time and each Raft node just votes for
@@ -421,10 +410,9 @@ operation at the end. After each operation, we verify that its commit index is
 greater than the commit index of the previous operation.  </p>
 <script src="https://gist.github.com/metanet/96fc904c59da940b7e6b92a6b9e20778.js"></script>
 
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.tutorial.OperationCommitTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the 
 <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/OperationCommitTest.java" target="_blank">MicroRaft Github repository</a>.</p>
 <p>We use <code>RaftNode.replicate()</code> to replicate and commit operations on the Raft
@@ -435,21 +423,18 @@ target="_blank"><code>Ordered</code></a> provides return value of the executed o
 and on which Raft log index the operation has been committed.</p>
 <p>The output of the first 2 <code>sysout</code> lines are below. Please note that <code>set</code>
 returns previous value of the atomic register.</p>
-<pre><code class="text">1st operation commit index: 2, result: null
+<pre><code class="language-text">1st operation commit index: 2, result: null
 2nd operation commit index: 3, result: value1
 </code></pre>
-
 <p>Then we commit 2 <code>cas</code> operations. The first <code>cas</code> manages to update the atomic
 register, but the second one fails because the atomic register value is
 different from the expected value.</p>
-<pre><code class="text">3rd operation commit index: 4, result: true
+<pre><code class="language-text">3rd operation commit index: 4, result: true
 4th operation commit index: 5, result: false
 </code></pre>
-
 <p>The last operation is a <code>get</code> to read the current value of the atomic register.</p>
-<pre><code class="text">5th operation commit index: 6, result: value3
+<pre><code class="language-text">5th operation commit index: 6, result: value3
 </code></pre>
-
 <p>If we call <code>RaftNode.replicate()</code> on a follower or candidate Raft node, the
 returned <code>CompletableFuture&lt;Ordered&gt;</code> object is simply notified with <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/NotLeaderException.java"
@@ -530,18 +515,16 @@ now. We will talk about it in a minute.</p>
 <script src="https://gist.github.com/metanet/4c3536653a2bd152899a41aa654b3f2d.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.tutorial.LinearizableQueryTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/LinearizableQueryTest.java"
 target="_blank">MicroRaft Github repository</a>.</p>
 <p>The output of the <code>sysout</code> lines are below:</p>
-<pre><code class="text">set operation commit index: 2
+<pre><code class="language-text">set operation commit index: 2
 get operation commit index: 2, result: value
 </code></pre>
-
 <p>As we discussed above, MicroRaft handles linearizable queries without appending
 a new entry to the Raft log. So our query is executed at the last committed log
 index. That is why both commit indices are the same in the output.</p>
@@ -569,7 +552,7 @@ nodes. When we create a new Raft node, we add it to the other Raft nodes'
 <em>discovery maps</em>. This time, we will do exactly the reverse to block the
 communication between the leader and the follower. Let's add the following
 method to our <code>LocalTransport</code> class:</p>
-<pre><code class="java">public void undiscoverNode(RaftNode node) {
+<pre><code class="language-java">public void undiscoverNode(RaftNode node) {
     RaftEndpoint endpoint = node.getLocalEndpoint();
     if (localEndpoint.equals(endpoint)) {
         throw new IllegalArgumentException(localEndpoint + &quot; cannot undiscover itself!&quot;);
@@ -578,7 +561,6 @@ method to our <code>LocalTransport</code> class:</p>
     nodes.remove(node.getLocalEndpoint(), node);
 }
 </code></pre>
-
 <p>We use this method in our new test below. We block the communication between the
 leader and follower after we set a value to the atomic register. Then we set
 another value which will not be replicated to the disconnected follower. After
@@ -590,10 +572,9 @@ hence our query fails with <code>LaggingCommitIndexException</code>.</p>
 <script src="https://gist.github.com/metanet/020956b893d68f13aced8dfb911f2e81.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.tutorial.MonotonicLocalQueryTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/MonotonicLocalQueryTest.java"
 target="_blank">MicroRaft Github repository</a>.</p>
@@ -638,10 +619,9 @@ transferring the snapshot.</p>
 <script src="https://gist.github.com/metanet/4565a0e995e64960f8f3248934d9c430.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.tutorial.SnapshotInstallationTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/SnapshotInstallationTest.java"
 target="_blank">MicroRaft Github repository</a>.</p>
@@ -673,16 +653,15 @@ quorum size of 5 = 3).</p>
 <script src="https://gist.github.com/metanet/4f0ab94b78b369a1cc9ac58ef0e6f011.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.tutorial.ChangeRaftGroupMemberListTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/ChangeRaftGroupMemberListTest.java"
 target="_blank">MicroRaft Github repository</a>.</p>
 <p>In this test, we create a new Raft endpoint, <code>endpoint4</code>, and add it to the Raft
 group in the following lines:</p>
-<pre><code class="java">RaftEndpoint endpoint4 = LocalRaftEndpoint.newEndpoint();
+<pre><code class="language-java">RaftEndpoint endpoint4 = LocalRaftEndpoint.newEndpoint();
 // group members commit index of the initial Raft group members is 0.
 RaftGroupMembers newMemberList1 = leader.changeMembership(endpoint4, MembershipChangeMode.ADD_OR_PROMOTE_TO_FOLLOWER, 0).join().getResult();
 System.out.println(&quot;New member list: &quot; + newMemberList1.getMembers() + &quot;, majority: &quot; + newMemberList1.getMajorityQuorumSize()
@@ -692,15 +671,13 @@ System.out.println(&quot;New member list: &quot; + newMemberList1.getMembers() +
 RaftNode raftNode4 = createRaftNode(endpoint4);
 raftNode4.start();
 </code></pre>
-
 <p>Please notice that we pass <code>0</code> for the third argument to
 <code>RaftNode.changeMembership()</code>, because our Raft group operates with the initial
 member list whose group members commit index is <code>0</code>. After this call returns,
 <code>endpoint4</code> is part of the Raft group, so we start its Raft node as well.</p>
 <p>Our <code>sysout</code> line here prints the following:</p>
-<pre><code class="text">New member list: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}, LocalRaftEndpoint{id=node4}], majority: 3, commit index: 3
+<pre><code class="language-text">New member list: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}, LocalRaftEndpoint{id=node4}], majority: 3, commit index: 3
 </code></pre>
-
 <p>As you see, our Raft group has 4 members now, whose majority quorum size is 3.
 Actually, running a 4-node Raft group has no advantage over running a 3-node
 Raft group in terms of the degree of availability because both of them can
@@ -712,9 +689,8 @@ pass <code>newMemberList1.getLogIndex()</code> which is the log index <code>endp
 to the Raft group. Please note that we could also get the current Raft group
 members commit index via <code>RaftNode.getCommittedMembers()</code>.</p>
 <p>Our second <code>sysout</code> line prints the following:</p>
-<pre><code class="text">New member list: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}, LocalRaftEndpoint{id=node4}, LocalRaftEndpoint{id=node5}], majority: 3, commit index: 5
+<pre><code class="language-text">New member list: [LocalRaftEndpoint{id=node1}, LocalRaftEndpoint{id=node2}, LocalRaftEndpoint{id=node3}, LocalRaftEndpoint{id=node4}, LocalRaftEndpoint{id=node5}], majority: 3, commit index: 5
 </code></pre>
-
 <p>Now we have 5 nodes in our Raft group with the majority quorum size of 3. It 
 means that now our Raft group can tolerate failure of 2 Raft nodes and still
 remain operational. Voila!</p>
@@ -759,16 +735,13 @@ calm and carry on</a>!</p></div>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>

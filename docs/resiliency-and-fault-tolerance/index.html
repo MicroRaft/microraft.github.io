@@ -12,11 +12,11 @@
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -71,15 +71,7 @@
 </li>
                                     
 <li>
-    <a href="../../javadoc/0.4-SNAPSHOT/index.html" class="dropdown-item">Javadoc 0.4-SNAPSHOT</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.3/index.html" class="dropdown-item">Javadoc 0.3</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.1/index.html" class="dropdown-item">Javadoc 0.1</a>
+    <a href="../../javadoc/0.4/index.html" class="dropdown-item">Javadoc 0.4</a>
 </li>
                                     
 <li>
@@ -229,10 +221,9 @@ requests to the leader. After some time, our requests fail with
 <script src="https://gist.github.com/metanet/3350f8107c01171f46bf08644cec582c.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.faulttolerance.HighLoadTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/HighLoadTest.java"
 target="_blank">MicroRaft Github repository</a>.</p>
@@ -266,10 +257,9 @@ crash-recovery testing. In the following code sample, we use this utility, i.e.,
 <script src="https://gist.github.com/metanet/14e9ef6d9a5f3992a03de5cd8a874589.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.faulttolerance.RestoreCrashedRaftNodeTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the 
 <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/RestoreCrashedRaftNodeTest.java" target="_blank">MicroRaft Github repository</a>.</p>
 <p>This time we provide a factory object to enable <code>LocalRaftGroup</code> to create
@@ -283,11 +273,10 @@ ignore the details of <code>RaftTestUtils.getRestoredState()</code> and
 to the other Raft nodes, discovers the current leader Raft node and its commit
 index, and replays all committed operations on its state machine.</p>
 <p>Our <code>sysout</code> lines in this test print the following:</p>
-<pre><code class="text">replicate result: value, commit index: 1
+<pre><code class="language-text">replicate result: value, commit index: 1
 monotonic local query successful on follower. query result: value, commit index: 1
 monotonic local query successful on restarted follower. query result: value, commit index: 1
 </code></pre>
-
 <p><img alt="" src="/img/warning.png" style="height:25px;width:25px" /> When a Raft node starts
 with a restored Raft state, it discovers the current commit index and replays
 the Raft log, i.e., automatically applies all the log entries up to the commit
@@ -360,10 +349,9 @@ new leader, we see that there are 2 values applied to the state machine.</p>
 <script src="https://gist.github.com/metanet/125d33a0e009e9119f5c9a96061ec69e.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.faulttolerance.RaftLeaderFailureTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/RaftLeaderFailureTest.java"
 target="_blank">MicroRaft Github repository</a>.</p>
@@ -437,10 +425,9 @@ availability as long as there is a leader Raft node taking to the majority
 <script src="https://gist.github.com/metanet/0ab1af1675056445da2cd99295de2665.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.faulttolerance.MajorityFailureTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the 
 <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/MajorityFailureTest.java" target="_blank">MicroRaft Github repository</a>.</p>
 <p><img alt="" src="/img/warning.png" style="height:25px;width:25px" /> Please note that you
@@ -485,10 +472,9 @@ Phew! </p>
 <script src="https://gist.github.com/metanet/ac66fbb2f6e2ef5e8224ac387d2e2b44.js"></script>
 
 <p>To run this test on your machine, try the following:</p>
-<pre><code class="bash">$ gh repo clone MicroRaft/MicroRaft
+<pre><code class="language-bash">$ gh repo clone MicroRaft/MicroRaft
 $ cd MicroRaft &amp;&amp; ./mvnw clean test -Dtest=io.microraft.faulttolerance.NetworkPartitionTest -DfailIfNoTests=false -Ptutorial
 </code></pre>
-
 <p>You can also see it in the 
 <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/NetworkPartitionTest.java" target="_blank">MicroRaft Github repository</a>.</p>
 <hr />
@@ -530,16 +516,13 @@ with <code>RestoredRaftState</code> objects.</p></div>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>
