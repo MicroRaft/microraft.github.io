@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Ensar Basri Kahveci">
+        <link rel="canonical" href="https://microraft.io/blog/2023-02-15-log-replication/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>February 15, 2023 | Log replication - MicroRaft</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-485423-8', 'MicroRaft');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">MicroRaft</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../docs/setup/" class="dropdown-item">Setup</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/main-abstractions/" class="dropdown-item">Main Abstractions</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/configuration/" class="dropdown-item">Configuration</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/tutorial-building-an-atomic-register/" class="dropdown-item">Tutorial: Building an Atomic Register</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/resiliency-and-fault-tolerance/" class="dropdown-item">Resiliency and Fault Tolerance</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/monitoring/" class="dropdown-item">Monitoring</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/afloatdb/" class="dropdown-item">AfloatDB - Distributed Key-Value Store</a>
+</li>
+                                    
+<li>
+    <a href="../../javadoc/0.5/index.html" class="dropdown-item">Javadoc 0.5</a>
+</li>
+                                    
+<li>
+    <a href="../../javadoc/0.4/index.html" class="dropdown-item">Javadoc 0.4</a>
+</li>
+                                    
+<li>
+    <a href="https://github.com/MicroRaft/MicroRaft/releases" class="dropdown-item">Release Notes</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/roadmap/" class="dropdown-item">Roadmap</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">February 15, 2023 | Log replication</a>
+</li>
+                                    
+<li>
+    <a href="../2022-11-12-implementing-the-log/" class="dropdown-item">November 12, 2022 | Implementing the log</a>
+</li>
+                                    
+<li>
+    <a href="../2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/" class="dropdown-item">September 8, 2021 | Today a Raft Follower, Tomorrow a Raft Leader</a>
+</li>
+                                    
+<li>
+    <a href="../2021-09-03-introducing-microraft/" class="dropdown-item">September 3, 2021 | Introducing MicroRaft</a>
+</li>
+                                    
+<li>
+    <a href=".." class="dropdown-item">All Blog Posts</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="https://github.com/MicroRaft/MicroRaft" class="nav-link">Github</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="https://twitter.com/MicroRaft" class="nav-link">Twitter</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../../docs/roadmap/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../2022-11-12-implementing-the-log/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#log-replication-in-microraft" class="nav-link">Log Replication in MicroRaft</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#handling-client-requests" class="nav-link">Handling client requests</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#batching" class="nav-link">Batching</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#amortizing-the-cost-of-disk-writes" class="nav-link">Amortizing the cost of disk writes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pipelining" class="nav-link">Pipelining</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#wrap-up" class="nav-link">Wrap up</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="log-replication-in-microraft">Log Replication in MicroRaft</h1>
+<p>This article is the third in <em>the ins and outs of MicroRaft</em> series. Here we
+uncover how log replication is done in MicroRaft.</p>
+<p>MicroRaft replicates a log entry as follows:</p>
+<ol>
+<li>
+<p>A client sends a request to the leader Raft node. This request contains an
+   operation that is going to executed on the state machine once committed.</p>
+</li>
+<li>
+<p>The leader Raft node creates a new log entry for this operation and appends
+   it to the local Raft log.</p>
+</li>
+<li>
+<p>The leader Raft node replicates the log entry to the followers.</p>
+</li>
+<li>
+<p>The leader waits for acknowledgements from the followers. Once it learns that
+   the log entry is appended by the majority of the Raft nodes, it commits the
+   log entry by advancing the commit index.</p>
+</li>
+<li>
+<p>The leader applies the log entry by passing the operation to the
+   user-supplied state machine. Then, the value returned by the state machine is
+   sent back to the client.</p>
+</li>
+</ol>
+<p>These steps must be executed serially for a single log entry. However, if we
+execute the whole process for only one log entry at a time, we end up with a
+sub-optimal performance. Hence, MicroRaft employs a number of techniques to 
+commit log entries in a performant manner. In this article, we describe these
+techniques.</p>
+<h2 id="handling-client-requests">Handling client requests</h2>
+<p>MicroRaft's main abstraction is <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"><code>RaftNode</code></a>. Clients talk to the leader Raft node
+to replicate their operations. Raft node runs in a single-threaded manner and
+executes the Raft consensus algorithm with the <a
+href="https://en.wikipedia.org/wiki/Actor_model" target="_blank">Actor
+model</a>. It uses another abstraction -with a default implementation- for this
+purpose: <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/executor/RaftNodeExecutor.java"><code>RaftNodeExecutor</code></a>. Raft node submits tasks to its <code>RaftNodeExecutor</code> to
+handle API calls made by clients, RPC messages and responses sent by other Raft
+nodes, and internal logic related to the execution of the Raft consensus
+algorithm.</p>
+<p>Raft nodes send RPC requests and responses to each other via <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/transport/Transport.java"><code>Transport</code></a>.
+<code>Transport</code> is expected to realize networking outside of the Raft thread (i.e.,
+<code>RaftNodeExecutor</code>'s internal thread). Similarly, the communication between
+clients and Raft nodes happens outside of the Raft thread. You can learn more
+about MicroRaft's main abstractions and threading model <a href="https://microraft.io/docs/main-abstractions/"
+target="_blank">here</a>.</p>
+<p>Figure 1 depicts the case when a client calls <code>RaftNode.replicate()</code> for an
+operation. Upon this API call, Raft node creates an instance of <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/impl/task/ReplicateTask.java"><code>ReplicateTask</code></a>
+and puts the task into the task queue of its <code>RaftNodeExecutor</code>.
+<code>RaftNodeExecutor</code>'s internal thread executes the tasks submitted to its task
+queue.</p>
+<p><img alt="Figure 1" class="class" height="198px" id="id" src="https://microraft.io/img/blog4-fig1.png" width="348px" /></p>
+<p>When a <code>ReplicateTask</code> instance is executed by the leader Raft node, it creates a
+new log entry for the client's operation, appends it the leader's log and sends
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/AppendEntriesRequest.java"><code>AppendEntriesRequest</code></a>s to the followers.</p>
+<p>You can check the previous article to learn how MicroRaft implements the log.
+For this article, it is enough for you to know that the log consists of 2
+components: <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/impl/log/RaftLog.java"><code>RaftLog</code></a> and <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RaftStore.java"><code>RaftStore</code></a>. <code>RaftLog</code> keeps log entries in memory and
+<code>RaftStore</code> writes them to disk.</p>
+<h2 id="batching">Batching</h2>
+<p>Batching is a fundamental technique to improve performance. It is used to 
+amortize processing costs of multiple requests. Raft offers a few opportunities
+to utilize batching. For instance, for each follower, the leader puts multiple
+consecutive log entries into an AppendEntriesRequest. This approach enables 
+the leader to utilize the network better. It also enables followers to amortize
+the cost of disk writes. We elaborate this in the next section.</p>
+<p>MicroRaft implements the batching policy described in the Section 10.2.2 of the
+Raft dissertation. After the leader Raft node sends an AppendEntriesRequest to a
+follower, it does not send another AppendEntriesRequest until the follower
+responds back. It can append new log entries into its local log in the
+meantime. Once the leader receives a response from a follower, it updates the
+follower's match index and sends all accumulated log entries in a new
+AppendEntriesRequest. This simple yet effective policy dynamically adapts batch
+sizes to the request rate.</p>
+<p>MicroRaft limits the maximum number of log entries in AppendEntriesRequests via
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftConfig.java"><code>RaftConfig.getAppendEntriesRequestBatchSize()</code></a>. This is to prevent the leader
+from saturating the network with large messages and causing the followers to
+suspect its liveliness.</p>
+<p>Followers acknowledge log entries in batches with this design, hence cause the
+leader to advance the commit index in batches.</p>
+<h2 id="amortizing-the-cost-of-disk-writes">Amortizing the cost of disk writes</h2>
+<p>In a naive implementation of the log replication flow we described 
+in the intro, the leader writes each log entry to its own disk before
+replicating it to the followers. So each log entry pays 2 serial disk-write
+costs before it is committed: one in the leader Raft node when <code>RaftLog</code> passes
+the log entry to <code>RaftStore</code>, and the second one in the follower Raft node before
+it responds back to the leader to acknowledge that it has durably appended
+the log entry. This behaviour prevents Raft nodes to amortize the cost of disk
+writes, and also causes under-utilization of the Raft thread and higher commit
+latencies.</p>
+<p><code>RaftStore</code> is designed to amortize the cost of disk writes. When <code>RaftLog</code> calls
+<code>RaftStore.persistLogEntry()</code> for a log entry, the underlying implementation is
+allowed to buffer the disk write instead of immediately flushing it. There is
+also an API to flush all buffered writes to disk: <code>RaftStore.flush()</code>. When it
+is called, the RaftStore implementation must guarantee the durability of
+the buffered disk writes, i.e. fsync.</p>
+<p>This design works well with the batching employed for log replication. When a
+follower receives a batch of log entries via an <code>AppendEntriesRequest</code>, it
+passes them to <code>RaftStore.persistLogEntry()</code> and then makes a final
+<code>RaftStore.flush()</code> call to ensure their durability. By this way, followers
+amortize the cost of disk writes.</p>
+<p><img alt="Figure 2" class="class" height="198px" id="id" src="https://microraft.io/img/blog4-fig2.png" width="348px" /></p>
+<p>MicroRaft also employs the technique described in the Section 10.2.1 of the Raft
+dissertation to amortize the cost of disk writes on the leader. When the
+leader's Raft thread executes a <code>ReplicateTask</code>, it appends the new log entry to
+the in-memory <code>RaftLog</code>, but does not immediately flush the disk write via
+<code>RaftStore</code>. Instead, as Figure 2 demonstrates, it submits another task to perform
+the flush: <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/impl/task/LeaderFlushTask.java"><code>LeaderFlushTask</code></a>. This task usually comes after multiple <code>ReplicateTask</code>
+instances already submitted to the task queue by other clients. Therefore it
+flushes all disk writes buffered until its execution.</p>
+<p>This design enables the leader and followers to flush buffered disk writes in
+parallel. In addition, since <code>RaftStore.flush()</code> typically involves costly
+<code>fsync</code> calls on the kernel level, both the leader and followers amortize the
+cost of <code>fsync</code> for multiple log entries.</p>
+<h2 id="pipelining">Pipelining</h2>
+<p>Raft also supports pipelining in log replication. For instance, the leader can
+send a new <code>AppendEntriesRequest</code> to a follower before it acknowledges the
+previous one. Thanks to Raft's <em>AppendEntries consistency check</em>, followers can
+also handle <code>AppendEntriesRequest</code>s that are arriving out-of-order. However,
+this approach complicates the management of <em>match</em> and <em>next</em> indices of
+followers. Moreover, pipelining <code>AppendEntriesRequest</code>s contradicts with
+batching to some degree. Pipelining <code>AppendEntriesRequest</code>s can reduce batch
+sizes and increase the cost of networking and disk writes, and brings little
+benefit if the cost of disk writes is significantly greater than networking.
+Therefore, the overall improvement on performance highly relies on the effective
+integration of batching and pipelining.</p>
+<p>MicroRaft utilizes the concurrency between the leader and followers to improve
+performance. For instance, the leader can append new log entries, advance the
+commit index, or execute queries while followers are processing
+<code>AppendEntriesRequest</code>s. However, since the leader maintains a single outstanding
+<em>AppendEntries</em> RPC for each follower, it does not pipeline
+<code>AppendEntriesRequest</code>s at the moment. We can implement this in future.</p>
+<h2 id="wrap-up">Wrap up</h2>
+<p>In Raft, the leader is responsible for managing the Raft group and replicating
+log entries. This strong leader-oriented approach simplifies several aspects of
+the solution to the consensus problem. However, it also causes the leader to
+become bottleneck very easily. Therefore it is very important to apply several
+techniques to replicate log entries in a performant manner. In this article, we
+investigated the techniques implemented in MicroRaft. Of course, we are not done
+yet. We still have a few more tricks in the tank to improve performance of log
+replication!</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>MicroRaft, 2021. Open-sourced by <a href="https://twitter.com/metanet" target="_blank">Ensar Basri Kahveci</a>.<br/>MicroRaft is not affiliated, associated, endorsed by, or in any way officially connected with<br/>Facebook, or any of its subsidiaries or its affiliates.</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
