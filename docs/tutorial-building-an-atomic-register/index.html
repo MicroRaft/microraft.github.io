@@ -75,6 +75,10 @@
 </li>
                                     
 <li>
+    <a href="../../javadoc/0.6/index.html" class="dropdown-item">Javadoc 0.6</a>
+</li>
+                                    
+<li>
     <a href="../../javadoc/0.5/index.html" class="dropdown-item">Javadoc 0.5</a>
 </li>
                                     
@@ -96,7 +100,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication</a>
+    <a href="../../blog/2023-04-05-queries/" class="dropdown-item">April 5, 2023 | Queries in MicroRaft</a>
+</li>
+                                    
+<li>
+    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication in MicroRaft</a>
 </li>
                                     
 <li>
@@ -488,16 +496,11 @@ guarantee:</p>
   <code>NotLeaderException</code>.</p>
 </li>
 <li>
-<p><code>QueryPolicy.BOUNDED_STALENESS</code> We can run a query locally on a follower or a
-  learner Raft node if it has received an AppendEntries RPC from the leader in the
-  last leader heartbeat timeout duration.</p>
-</li>
-<li>
 <p><code>QueryPolicy.EVENTUAL_CONSISTENCY</code>: We can use this policy to run a query
   locally on any Raft node independent of its current role. This policy provides
   the weakest consistency guarantee, but it can help us to distribute our
   query-workload by utilizing followers. We can also utilize <code>Ordered</code> to
-  preserve a monotonic view of the Raft group state.</p>
+  achive monotonic reads and read your writes.</p>
 </li>
 </ul>
 <p>MicroRaft also employs leader stickiness and auto-demotion of leaders on loss of
@@ -540,10 +543,9 @@ get operation commit index: 2, result: value
 <p>As we discussed above, MicroRaft handles linearizable queries without appending
 a new entry to the Raft log. So our query is executed at the last committed log
 index. That is why both commit indices are the same in the output.</p>
-<h4 id="monotonic-local-queries">Monotonic local queries</h4>
-<p><code>QueryPolicy.LEADER_LEASE</code>, <code>QueryPolicy.BOUNDED_STALENESS</code> and
-<code>QueryPolicy.EVENTUAL_CONSISTENCY</code> can be easily used if monotonicity is
-sufficient for query results. This is where <a
+<h4 id="monotonic-reads-via-local-queries">Monotonic reads via local queries</h4>
+<p><code>QueryPolicy.LEADER_LEASE</code> and <code>QueryPolicy.EVENTUAL_CONSISTENCY</code> can be easily
+used if monotonicity is sufficient for query results. This is where <a
 href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/Ordered.java"
 target="_blank"><code>Ordered</code></a> comes in handy. A client can track commit indices
 observed via returned <code>Ordered</code> objects and use the greatest observed commit

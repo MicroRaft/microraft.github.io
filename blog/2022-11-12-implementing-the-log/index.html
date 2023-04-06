@@ -75,6 +75,10 @@
 </li>
                                     
 <li>
+    <a href="../../javadoc/0.6/index.html" class="dropdown-item">Javadoc 0.6</a>
+</li>
+                                    
+<li>
     <a href="../../javadoc/0.5/index.html" class="dropdown-item">Javadoc 0.5</a>
 </li>
                                     
@@ -96,7 +100,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication</a>
+    <a href="../2023-04-05-queries/" class="dropdown-item">April 5, 2023 | Queries in MicroRaft</a>
+</li>
+                                    
+<li>
+    <a href="../2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication in MicroRaft</a>
 </li>
                                     
 <li>
@@ -158,7 +166,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="2"><a href="#implementing-the-log" class="nav-link">Implementing the Log</a>
+            <li class="nav-item" data-level="2"><a href="#implementing-the-log" class="nav-link">Implementing the log</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -192,7 +200,8 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h2 id="implementing-the-log">Implementing the Log</h2>
+<h2 id="implementing-the-log">Implementing the log</h2>
+<p><em>November 12, 2022 | Ensar Basri Kahveci</em></p>
 <p>This article is the second in <em>the ins and outs of MicroRaft</em> series. Here we
 dissect the log.</p>
 <p>MicroRaft implements the log with 2 components: <a href="https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/impl/log/RaftLog.java"><code>RaftLog</code></a> and <a href="https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/persistence/RaftStore.java"><code>RaftStore</code></a>.

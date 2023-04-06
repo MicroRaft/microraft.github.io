@@ -75,6 +75,10 @@
 </li>
                                     
 <li>
+    <a href="../../javadoc/0.6/index.html" class="dropdown-item">Javadoc 0.6</a>
+</li>
+                                    
+<li>
     <a href="../../javadoc/0.5/index.html" class="dropdown-item">Javadoc 0.5</a>
 </li>
                                     
@@ -96,7 +100,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication</a>
+    <a href="../../blog/2023-04-05-queries/" class="dropdown-item">April 5, 2023 | Queries in MicroRaft</a>
+</li>
+                                    
+<li>
+    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication in MicroRaft</a>
 </li>
                                     
 <li>
@@ -418,14 +426,13 @@ leadership role. Because of that, it will also fail our operation with
 <code>IndeterminateOperationStateException</code>. Since it is a follower now, it will
 directly reject new <code>RaftNode.replicate()</code> calls with <code>NotLeaderException</code>. At
 this point, our Raft group is unavailable for <code>RaftNode.replicate()</code> calls, and
-<code>RaftNode.query()</code>calls for <code>QueryPolicy.LINEARIZABLE</code>,
-<code>QueryPolicy.LEADER_LEASE</code>, and <code>QueryPolicy.BOUNDED_STALENESS</code> but we can still
-perform a local query with <code>QueryPolicy.EVENTUAL_CONSISTENCY</code>. If we want to
-make the Raft group available again, we don't need to restore all crashed Raft
-nodes. In this particular scenario, it is sufficient to restore only 1 Raft node
-so that we will have the majority alive again. It is what we do in the last part
-of the test. Once we have 2 Raft nodes running again, they will be able to elect
-a new leader.</p>
+<code>RaftNode.query()</code>calls for <code>QueryPolicy.LINEARIZABLE</code> and
+<code>QueryPolicy.LEADER_LEASE</code>, but we can still perform a local query with
+<code>QueryPolicy.EVENTUAL_CONSISTENCY</code>. If we want to make the Raft group available
+again, we don't need to restore all crashed Raft nodes. In this particular
+scenario, it is sufficient to restore only 1 Raft node so that we will have
+the majority alive again. It is what we do in the last part of the test. Once
+we have 2 Raft nodes running again, they will be able to elect a new leader.</p>
 <p>In this example, we waited until the leader demotes itself to the follower role
 before restarting the crashed Raft nodes. This is not a requirement for
 restoring crashed Raft nodes, and we did it here only for the sake of example.
