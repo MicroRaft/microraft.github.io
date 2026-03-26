@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The interactive demo is not publicly exposed from the site. Continue with the documentation hub.">
+  <meta name="author" content="Ensar Basri Kahveci">
+  <link rel="canonical" href="https://microraft.io/demo/">
+  <link rel="icon" type="image/png" href="../img/microraft_logo_transparent.png">
+  <link rel="shortcut icon" href="../img/microraft_logo_transparent.png">
+  <link rel="apple-touch-icon" href="../img/microraft_logo_transparent.png">
+
+  <title>Documentation | MicroRaft</title>
+
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+        <link href="../stylesheets/microraft.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <meta name="keywords" content="MicroRaft documentation, Java Raft docs">
+  
+  
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:site_name" content="MicroRaft">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="MicroRaft Documentation Hub">
+  <meta property="og:description" content="The interactive demo is not publicly exposed from the site. Continue with the documentation hub.">
+  <meta property="og:type" content="website">
+  
+  <meta property="og:url" content="https://microraft.io/demo/">
+  
+  <meta property="og:image" content="https://microraft.io/img/microraft-sticker.png">
+  <meta property="og:image:alt" content="MicroRaft Documentation Hub">
+  <meta property="og:image:secure_url" content="https://microraft.io/img/microraft-sticker.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MicroRaft Documentation Hub">
+  <meta name="twitter:description" content="The interactive demo is not publicly exposed from the site. Continue with the documentation hub.">
+  <meta name="twitter:image" content="https://microraft.io/img/microraft-sticker.png">
+  <meta name="twitter:site" content="@MicroRaft">
+  <meta name="twitter:creator" content="@MicroRaft">
+  
+  
+  
+  <meta property="article:section" content="Site">
+  
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "MicroRaft Documentation Hub",
+      "headline": "MicroRaft Documentation Hub",
+      "description": "The interactive demo is not publicly exposed from the site. Continue with the documentation hub.",
+      "inLanguage": "en",
+      "url": "https://microraft.io/demo/",
+      "mainEntityOfPage": "https://microraft.io/demo/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://microraft.io/img/microraft-sticker.png"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ensar Basri Kahveci"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MicroRaft",
+        "url": "https://microraft.io/"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MicroRaft",
+        "url": "https://microraft.io/"
+      },
+      "keywords": "MicroRaft documentation, Java Raft docs"
+    }
+  </script>
+  
+  
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://microraft.io/"
+        }
+      ]
+    }
+  </script>
+  
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">MicroRaft</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Getting Started</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../docs/documentation/" class="dropdown-item">Docs Hub</a>
+</li>
+            
+<li>
+    <a href="../docs/setup/" class="dropdown-item">Setup</a>
+</li>
+            
+<li>
+    <a href="../docs/tutorial-building-an-atomic-register/" class="dropdown-item">Atomic Register Tutorial</a>
+</li>
+            
+<li>
+    <a href="../docs/faq/" class="dropdown-item">FAQ</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Evaluation</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../docs/why-microraft/" class="dropdown-item">Why MicroRaft?</a>
+</li>
+            
+<li>
+    <a href="../docs/use-cases/" class="dropdown-item">Use Cases</a>
+</li>
+            
+<li>
+    <a href="../docs/recipe-metadata-store/" class="dropdown-item">Metadata Store Recipe</a>
+</li>
+            
+<li>
+    <a href="../docs/recipe-distributed-lock-service/" class="dropdown-item">Lock Service Recipe</a>
+</li>
+            
+<li>
+    <a href="../docs/recipe-coordination-service/" class="dropdown-item">Coordination Recipe</a>
+</li>
+            
+<li>
+    <a href="../docs/benchmarks/" class="dropdown-item">Benchmarks</a>
+</li>
+            
+<li>
+    <a href="../docs/afloatdb/" class="dropdown-item">AfloatDB</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Operations</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../docs/main-abstractions/" class="dropdown-item">Main Abstractions</a>
+</li>
+            
+<li>
+    <a href="../docs/configuration/" class="dropdown-item">Configuration</a>
+</li>
+            
+<li>
+    <a href="../docs/resiliency-and-fault-tolerance/" class="dropdown-item">Resiliency</a>
+</li>
+            
+<li>
+    <a href="../docs/monitoring/" class="dropdown-item">Monitoring</a>
+</li>
+            
+<li>
+    <a href="../docs/production-checklist/" class="dropdown-item">Production Checklist</a>
+</li>
+            
+<li>
+    <a href="../docs/troubleshooting/" class="dropdown-item">Troubleshooting</a>
+</li>
+            
+<li>
+    <a href="../docs/release-notes/" class="dropdown-item">Release Notes</a>
+</li>
+            
+<li>
+    <a href="../docs/roadmap/" class="dropdown-item">Roadmap</a>
+</li>
+            
+<li>
+    <a href="https://javadoc.io/doc/io.microraft/microraft" class="dropdown-item">Javadoc</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../blog/" class="dropdown-item">All Posts</a>
+</li>
+                                    
+<li>
+    <a href="../blog/2023-04-05-queries/" class="dropdown-item">Queries in MicroRaft</a>
+</li>
+                                    
+<li>
+    <a href="../blog/2023-02-15-log-replication/" class="dropdown-item">Log replication in MicroRaft</a>
+</li>
+                                    
+<li>
+    <a href="../blog/2022-11-12-implementing-the-log/" class="dropdown-item">Implementing the log</a>
+</li>
+                                    
+<li>
+    <a href="../blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/" class="dropdown-item">Today a Raft Follower, Tomorrow a Raft Leader</a>
+</li>
+                                    
+<li>
+    <a href="../blog/2021-09-03-introducing-microraft/" class="dropdown-item">Introducing MicroRaft</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p><meta name="robots" content="noindex, nofollow">
+<meta http-equiv="refresh" content="0; url=/docs/documentation/"></p>
+<div class="mr-doc-shell">
+  <section class="mr-doc-hero mr-doc-hero-compact">
+    <div class="mr-page-kicker">Redirecting</div>
+    <h1 class="mr-page-title">Documentation hub</h1>
+    <p class="mr-page-summary">
+      The demo is not exposed from the site. Continue with the documentation hub.
+    </p>
+    <p><a class="mr-card-cta" href="/docs/documentation/">Open documentation</a></p>
+  </section>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+  <div class="mr-site-footer" role="contentinfo">
+    <div class="mr-site-footer-inner">
+      
+      
+      <div class="mr-page-nav-utility">
+        
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="#top">Back to top</a>
+      </div>
+      
+      <section class="mr-site-footer-grid">
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Project</div>
+          <a href="../docs/why-microraft/">Why MicroRaft?</a>
+          <a href="../docs/main-abstractions/">Main Abstractions</a>
+          <a href="../docs/setup/">Setup</a>
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Community</div>
+          <a href="https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lIme2IaaQ" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-slack mr-site-footer-icon" aria-hidden="true"></span><span>Community Slack</span></a>
+          <a href="../blog/">Blog</a>
+          <a href="../docs/roadmap/">Roadmap</a>
+          <a href="../docs/troubleshooting/">Troubleshooting</a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X / Twitter</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Releases</div>
+          <a href="../docs/release-notes/">Release Notes</a>
+          <a href="../docs/benchmarks/">Benchmarks</a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+          <a href="https://github.com/MicroRaft/MicroRaft/releases" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-tag mr-site-footer-icon" aria-hidden="true"></span><span>GitHub Releases</span></a>
+        </div>
+      </section>
+      <p class="mr-site-footer-note">Embeddable Java Raft for metadata, coordination, and control-plane services.</p>
+      <div class="mr-site-footer-meta">
+        <div class="mr-site-footer-meta-copy">Apache 2.0 licensed · Copyright MicroRaft</div>
+        <div class="mr-site-footer-meta-copy">Built for embeddable CP systems</div>
+        <div class="mr-site-footer-meta-links">
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X</span></a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        </footer>
+  
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var links = document.querySelectorAll("a[href]");
+
+      links.forEach(function (link) {
+        var href = link.getAttribute("href");
+
+        if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+          return;
+        }
+
+        try {
+          var url = new URL(href, window.location.href);
+
+          if (url.origin !== window.location.origin) {
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+          }
+        } catch (error) {
+          // Ignore malformed href values and leave them unchanged.
+        }
+      });
+    });
+  </script>
+
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

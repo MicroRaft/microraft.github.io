@@ -1,32 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <meta name="author" content="Ensar Basri Kahveci">
-        <link rel="canonical" href="https://microraft.io/docs/setup/">
-        <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Setup - MicroRaft</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Set up MicroRaft in a Java project, add the dependencies, and run the local tutorial flow with Gradle.">
+  <meta name="author" content="Ensar Basri Kahveci">
+  <link rel="canonical" href="https://microraft.io/docs/setup/">
+  <link rel="icon" type="image/png" href="../../img/microraft_logo_transparent.png">
+  <link rel="shortcut icon" href="../../img/microraft_logo_transparent.png">
+  <link rel="apple-touch-icon" href="../../img/microraft_logo_transparent.png">
+
+  <title>Setup | MicroRaft</title>
+
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+        <link href="../../stylesheets/microraft.css" rel="stylesheet">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <meta name="keywords" content="MicroRaft setup, Java Raft setup, Gradle Raft tutorial, MicroRaft dependencies, Java consensus setup">
+  
+  
+  <meta name="mr-doc-layout" content="reference">
+  
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:site_name" content="MicroRaft">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="MicroRaft Setup Guide for Java Raft Projects and Local Tutorial Runs">
+  <meta property="og:description" content="Set up MicroRaft in a Java project, add the dependencies, and run the local tutorial flow with Gradle.">
+  <meta property="og:type" content="article">
+  
+  <meta property="og:url" content="https://microraft.io/docs/setup/">
+  
+  <meta property="og:image" content="https://microraft.io/img/microraft-sticker.png">
+  <meta property="og:image:alt" content="MicroRaft Setup Guide for Java Raft Projects and Local Tutorial Runs">
+  <meta property="og:image:secure_url" content="https://microraft.io/img/microraft-sticker.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MicroRaft Setup Guide for Java Raft Projects and Local Tutorial Runs">
+  <meta name="twitter:description" content="Set up MicroRaft in a Java project, add the dependencies, and run the local tutorial flow with Gradle.">
+  <meta name="twitter:image" content="https://microraft.io/img/microraft-sticker.png">
+  <meta name="twitter:site" content="@MicroRaft">
+  <meta name="twitter:creator" content="@MicroRaft">
+  
+  
+  
+  <meta property="article:section" content="Docs">
+  
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "name": "MicroRaft Setup Guide for Java Raft Projects and Local Tutorial Runs",
+      "headline": "MicroRaft Setup Guide for Java Raft Projects and Local Tutorial Runs",
+      "description": "Set up MicroRaft in a Java project, add the dependencies, and run the local tutorial flow with Gradle.",
+      "inLanguage": "en",
+      "url": "https://microraft.io/docs/setup/",
+      "mainEntityOfPage": "https://microraft.io/docs/setup/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://microraft.io/img/microraft-sticker.png"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ensar Basri Kahveci"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MicroRaft",
+        "url": "https://microraft.io/"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MicroRaft",
+        "url": "https://microraft.io/"
+      },
+      "keywords": "MicroRaft setup, Java Raft setup, Gradle Raft tutorial, MicroRaft dependencies, Java consensus setup"
+    }
+  </script>
+  
+  
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://microraft.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "https://microraft.io/docs/documentation/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Setup",
+          "item": "https://microraft.io/docs/setup/"
+        }
+      ]
+    }
+  </script>
+  
 
-            ga('create', 'UA-485423-8', 'auto');
-            ga('send', 'pageview');
-        </script> 
     </head>
 
     <body>
@@ -42,61 +136,110 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
                             <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Getting Started</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../documentation/" class="dropdown-item">Docs Hub</a>
+</li>
+            
 <li>
     <a href="./" class="dropdown-item active">Setup</a>
 </li>
+            
+<li>
+    <a href="../tutorial-building-an-atomic-register/" class="dropdown-item">Atomic Register Tutorial</a>
+</li>
+            
+<li>
+    <a href="../faq/" class="dropdown-item">FAQ</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Evaluation</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../why-microraft/" class="dropdown-item">Why MicroRaft?</a>
+</li>
+            
+<li>
+    <a href="../use-cases/" class="dropdown-item">Use Cases</a>
+</li>
+            
+<li>
+    <a href="../recipe-metadata-store/" class="dropdown-item">Metadata Store Recipe</a>
+</li>
+            
+<li>
+    <a href="../recipe-distributed-lock-service/" class="dropdown-item">Lock Service Recipe</a>
+</li>
+            
+<li>
+    <a href="../recipe-coordination-service/" class="dropdown-item">Coordination Recipe</a>
+</li>
+            
+<li>
+    <a href="../benchmarks/" class="dropdown-item">Benchmarks</a>
+</li>
+            
+<li>
+    <a href="../afloatdb/" class="dropdown-item">AfloatDB</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Operations</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../main-abstractions/" class="dropdown-item">Main Abstractions</a>
 </li>
-                                    
+            
 <li>
     <a href="../configuration/" class="dropdown-item">Configuration</a>
 </li>
-                                    
+            
 <li>
-    <a href="../tutorial-building-an-atomic-register/" class="dropdown-item">Tutorial: Building an Atomic Register</a>
+    <a href="../resiliency-and-fault-tolerance/" class="dropdown-item">Resiliency</a>
 </li>
-                                    
-<li>
-    <a href="../resiliency-and-fault-tolerance/" class="dropdown-item">Resiliency and Fault Tolerance</a>
-</li>
-                                    
+            
 <li>
     <a href="../monitoring/" class="dropdown-item">Monitoring</a>
 </li>
-                                    
+            
 <li>
-    <a href="../afloatdb/" class="dropdown-item">AfloatDB - Distributed Key-Value Store</a>
+    <a href="../production-checklist/" class="dropdown-item">Production Checklist</a>
 </li>
-                                    
+            
 <li>
-    <a href="../../javadoc/0.8/index.html" class="dropdown-item">Javadoc 0.8</a>
+    <a href="../troubleshooting/" class="dropdown-item">Troubleshooting</a>
 </li>
-                                    
+            
 <li>
-    <a href="../../javadoc/0.7/index.html" class="dropdown-item">Javadoc 0.7</a>
+    <a href="../release-notes/" class="dropdown-item">Release Notes</a>
 </li>
-                                    
-<li>
-    <a href="../../javadoc/0.6/index.html" class="dropdown-item">Javadoc 0.6</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.5/index.html" class="dropdown-item">Javadoc 0.5</a>
-</li>
-                                    
-<li>
-    <a href="https://github.com/MicroRaft/MicroRaft/releases" class="dropdown-item">Release Notes</a>
-</li>
-                                    
+            
 <li>
     <a href="../roadmap/" class="dropdown-item">Roadmap</a>
 </li>
+            
+<li>
+    <a href="https://javadoc.io/doc/io.microraft/microraft" class="dropdown-item">Javadoc</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -104,35 +247,29 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../blog/2023-04-05-queries/" class="dropdown-item">April 5, 2023 | Queries in MicroRaft</a>
+    <a href="../../blog/" class="dropdown-item">All Posts</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication in MicroRaft</a>
+    <a href="../../blog/2023-04-05-queries/" class="dropdown-item">Queries in MicroRaft</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2022-11-12-implementing-the-log/" class="dropdown-item">November 12, 2022 | Implementing the log</a>
+    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">Log replication in MicroRaft</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/" class="dropdown-item">September 8, 2021 | Today a Raft Follower, Tomorrow a Raft Leader</a>
+    <a href="../../blog/2022-11-12-implementing-the-log/" class="dropdown-item">Implementing the log</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2021-09-03-introducing-microraft/" class="dropdown-item">September 3, 2021 | Introducing MicroRaft</a>
+    <a href="../../blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/" class="dropdown-item">Today a Raft Follower, Tomorrow a Raft Leader</a>
 </li>
                                     
 <li>
-    <a href="../../blog" class="dropdown-item">All Blog Posts</a>
+    <a href="../../blog/2021-09-03-introducing-microraft/" class="dropdown-item">Introducing MicroRaft</a>
 </li>
                                 </ul>
-                            </li>
-                            <li class="navitem">
-                                <a href="https://github.com/MicroRaft/MicroRaft" class="nav-link">Github</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="https://twitter.com/MicroRaft" class="nav-link">Twitter</a>
                             </li>
                         </ul>
 
@@ -142,16 +279,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../main-abstractions/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -169,67 +296,201 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#setup" class="nav-link">Setup</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#logging" class="nav-link">Logging</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#what-is-next" class="nav-link">What is next?</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="setup">Setup</h1>
-<p>MicroRaft JARs are available via Maven Central. If you are
-using Maven, just add the following lines to your your <code>pom.xml</code>:</p>
-<pre><code class="language-xml">&lt;dependency&gt;
+<div class="mr-doc-shell">
+  <section class="mr-doc-hero">
+    <h1 class="mr-page-title mr-doc-title">Setup</h1>
+    <p class="mr-page-summary">Get MicroRaft into your project or run the repository locally in a few minutes.</p>
+    <div class="mr-inline-code"><code>./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest</code></div>
+  </section>
+  <section class="mr-doc-summary">
+    <article class="mr-doc-summary-card">
+      <strong>Use this page when</strong>
+      <span>You want the fastest path from clone or dependency declaration to a visible local run.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Leave with</strong>
+      <span>A working local command, dependency coordinates, and the right next docs to open.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Read next</strong>
+      <span>Go to Main Abstractions if you are integrating, or the tutorial if you want runnable code first.</span>
+    </article>
+  </section>
+
+  <section class="mr-doc-grid">
+    <article class="mr-doc-card">
+      <h3>Add the dependency</h3>
+      <p>MicroRaft JARs are available via Maven Central.</p>
+
+      <p><strong>Gradle version catalog</strong></p>
+
+      <pre class="mr-code-block"><code>[versions]
+microraft = "0.9"
+
+[libraries]
+microraft = { module = "io.microraft:microraft", version.ref = "microraft" }</code></pre>
+
+      <p><strong>Gradle Kotlin DSL</strong></p>
+
+      <pre class="mr-code-block"><code>implementation("io.microraft:microraft:0.9")</code></pre>
+
+      <p><strong>Maven</strong></p>
+
+      <pre class="mr-code-block"><code>&lt;dependency&gt;
     &lt;groupId&gt;io.microraft&lt;/groupId&gt;
     &lt;artifactId&gt;microraft&lt;/artifactId&gt;
-    &lt;version&gt;0.5&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>If you don't have Maven but want to build the project on your machine, <code>mvnw</code> is
-available in the MicroRaft repository. Just hit the following command on your
-terminal.</p>
-<pre><code>gh repo clone MicroRaft/MicroRaft &amp;&amp; cd MicroRaft &amp;&amp; ./mvnw clean package
-</code></pre>
-<p>Then you can get the JARs from <code>microraft/target</code>, <code>microraft-hocon/target</code>, and
-<code>microraft-yaml/target</code> directories.</p>
-<hr />
-<h2 id="logging">Logging</h2>
-<p>MicroRaft depends on the <a href="http://www.slf4j.org/" target="_blank">SLF4J
-library</a> for logging. Actually it is the only dependency of MicroRaft. Make
-sure you enable the <code>INFO</code> logging level for the <code>io.microraft</code> package. If you
-are going hard, you can also give the <code>DEBUG</code> level a shot, but I assure you it
-will be a bumpy ride.</p>
-<hr />
-<h2 id="what-is-next">What is next?</h2>
-<p>OK. You have the MicroRaft JAR in your classpath, and the logging also looks
-good. Now you are ready to build your CP distributed system! Then why don't you
-start with <a href="../main-abstractions/">checking out the main abstractions</a> defined in
-MicroRaft?</p></div>
+    &lt;version&gt;0.9&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+    </article>
+
+    <article class="mr-doc-card">
+      <h3>Build from source</h3>
+      <p>If you want to inspect or run the repository locally, clone it and use the Gradle wrapper.</p>
+
+      <pre class="mr-code-block"><code>gh repo clone MicroRaft/MicroRaft
+cd MicroRaft
+./gradlew build</code></pre>
+
+      <p>The built artifacts land under <code>microraft/build/libs</code>, <code>microraft-hocon/build/libs</code>, and <code>microraft-yaml/build/libs</code>.</p>
+    </article>
+
+    <article class="mr-doc-card">
+      <h3>Quick Start</h3>
+      <p>Run the local 3-node tutorial cluster before integrating the library into your own service.</p>
+
+      <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
+  --tests io.microraft.tutorial.OperationCommitTest</code></pre>
+
+      <ul>
+        <li>the build targets Java 11</li>
+        <li>make sure Java 11 is installed locally before running the command</li>
+        <li><code>LeaderElectionTest</code> is the shortest smoke test for cluster formation</li>
+      </ul>
+    </article>
+
+    <article class="mr-doc-card">
+      <h3>Logging and next steps</h3>
+      <p>MicroRaft depends only on SLF4J for logging. Enable <code>INFO</code> for <code>io.microraft</code>; use <code>DEBUG</code> only when you actually want deep protocol noise.</p>
+      <ul>
+        <li><a href="/docs/why-microraft/">Why MicroRaft?</a></li>
+        <li><a href="/docs/main-abstractions/">Main Abstractions</a></li>
+        <li><a href="/docs/tutorial-building-an-atomic-register/">Tutorial: Building an Atomic Register</a></li>
+        <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+      </ul>
+      <a class="mr-card-cta" href="/docs/main-abstractions/">Open abstractions</a>
+    </article>
+  </section>
+</div></div>
             </div>
         </div>
 
         <footer class="col-md-12">
-            <hr>
-                <p>MicroRaft, 2021. Open-sourced by <a href="https://twitter.com/metanet" target="_blank">Ensar Basri Kahveci</a>.<br/>MicroRaft is not affiliated, associated, endorsed by, or in any way officially connected with<br/>Facebook, or any of its subsidiaries or its affiliates.</p>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+  <div class="mr-site-footer" role="contentinfo">
+    <div class="mr-site-footer-inner">
+      
+      <nav class="mr-page-nav" aria-label="Page navigation">
+        
+        <a class="mr-page-nav-link is-previous" href="../documentation/">
+          <span class="mr-page-nav-label">Previous</span>
+          <span class="mr-page-nav-title">Docs Hub</span>
+        </a>
+        
+        
+        <a class="mr-page-nav-link is-next" href="../tutorial-building-an-atomic-register/">
+          <span class="mr-page-nav-label">Next</span>
+          <span class="mr-page-nav-title">Atomic Register Tutorial</span>
+        </a>
+        
+      </nav>
+      
+      
+      <div class="mr-page-nav-utility">
+        
+        <a class="mr-page-nav-utility-link" href="../documentation/">Back to docs hub</a>
+        
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="../tutorial-building-an-atomic-register/">Up next in this section</a>
+        
+        
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="#top">Back to top</a>
+      </div>
+      
+      <section class="mr-site-footer-grid">
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Project</div>
+          <a href="../why-microraft/">Why MicroRaft?</a>
+          <a href="../main-abstractions/">Main Abstractions</a>
+          <a href="./">Setup</a>
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Community</div>
+          <a href="https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lIme2IaaQ" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-slack mr-site-footer-icon" aria-hidden="true"></span><span>Community Slack</span></a>
+          <a href="../../blog/">Blog</a>
+          <a href="../roadmap/">Roadmap</a>
+          <a href="../troubleshooting/">Troubleshooting</a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X / Twitter</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Releases</div>
+          <a href="../release-notes/">Release Notes</a>
+          <a href="../benchmarks/">Benchmarks</a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+          <a href="https://github.com/MicroRaft/MicroRaft/releases" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-tag mr-site-footer-icon" aria-hidden="true"></span><span>GitHub Releases</span></a>
+        </div>
+      </section>
+      <p class="mr-site-footer-note">Embeddable Java Raft for metadata, coordination, and control-plane services.</p>
+      <div class="mr-site-footer-meta">
+        <div class="mr-site-footer-meta-copy">Apache 2.0 licensed · Copyright MicroRaft</div>
+        <div class="mr-site-footer-meta-copy">Built for embeddable CP systems</div>
+        <div class="mr-site-footer-meta-links">
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X</span></a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
         </footer>
+  
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../../js/base.js" defer></script>
         <script src="../../search/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var links = document.querySelectorAll("a[href]");
+
+      links.forEach(function (link) {
+        var href = link.getAttribute("href");
+
+        if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+          return;
+        }
+
+        try {
+          var url = new URL(href, window.location.href);
+
+          if (url.origin !== window.location.origin) {
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+          }
+        } catch (error) {
+          // Ignore malformed href values and leave them unchanged.
+        }
+      });
+    });
+  </script>
+
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

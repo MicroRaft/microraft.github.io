@@ -1,32 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <meta name="author" content="Ensar Basri Kahveci">
-        <link rel="canonical" href="https://microraft.io/docs/main-abstractions/">
-        <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Main Abstractions - MicroRaft</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Understand the main MicroRaft abstractions in Java, including RaftNode, StateMachine, transport, persistence, model factories, and executors.">
+  <meta name="author" content="Ensar Basri Kahveci">
+  <link rel="canonical" href="https://microraft.io/docs/main-abstractions/">
+  <link rel="icon" type="image/png" href="../../img/microraft_logo_transparent.png">
+  <link rel="shortcut icon" href="../../img/microraft_logo_transparent.png">
+  <link rel="apple-touch-icon" href="../../img/microraft_logo_transparent.png">
+
+  <title>Main Abstractions | MicroRaft</title>
+
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+        <link href="../../stylesheets/microraft.css" rel="stylesheet">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <meta name="keywords" content="MicroRaft abstractions, RaftNode Java, state machine Java, transport interface Raft, persistence store Raft, model factory">
+  
+  
+  <meta name="mr-doc-layout" content="article">
+  
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:site_name" content="MicroRaft">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="MicroRaft Main Abstractions in Java: RaftNode, StateMachine, Transport, and Store">
+  <meta property="og:description" content="Understand the main MicroRaft abstractions in Java, including RaftNode, StateMachine, transport, persistence, model factories, and executors.">
+  <meta property="og:type" content="article">
+  
+  <meta property="og:url" content="https://microraft.io/docs/main-abstractions/">
+  
+  <meta property="og:image" content="https://microraft.io/img/microraft-sticker.png">
+  <meta property="og:image:alt" content="MicroRaft Main Abstractions in Java: RaftNode, StateMachine, Transport, and Store">
+  <meta property="og:image:secure_url" content="https://microraft.io/img/microraft-sticker.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MicroRaft Main Abstractions in Java: RaftNode, StateMachine, Transport, and Store">
+  <meta name="twitter:description" content="Understand the main MicroRaft abstractions in Java, including RaftNode, StateMachine, transport, persistence, model factories, and executors.">
+  <meta name="twitter:image" content="https://microraft.io/img/microraft-sticker.png">
+  <meta name="twitter:site" content="@MicroRaft">
+  <meta name="twitter:creator" content="@MicroRaft">
+  
+  
+  
+  <meta property="article:section" content="Docs">
+  
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "name": "MicroRaft Main Abstractions in Java: RaftNode, StateMachine, Transport, and Store",
+      "headline": "MicroRaft Main Abstractions in Java: RaftNode, StateMachine, Transport, and Store",
+      "description": "Understand the main MicroRaft abstractions in Java, including RaftNode, StateMachine, transport, persistence, model factories, and executors.",
+      "inLanguage": "en",
+      "url": "https://microraft.io/docs/main-abstractions/",
+      "mainEntityOfPage": "https://microraft.io/docs/main-abstractions/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://microraft.io/img/microraft-sticker.png"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ensar Basri Kahveci"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MicroRaft",
+        "url": "https://microraft.io/"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MicroRaft",
+        "url": "https://microraft.io/"
+      },
+      "keywords": "MicroRaft abstractions, RaftNode Java, state machine Java, transport interface Raft, persistence store Raft, model factory"
+    }
+  </script>
+  
+  
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://microraft.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "https://microraft.io/docs/documentation/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Main Abstractions",
+          "item": "https://microraft.io/docs/main-abstractions/"
+        }
+      ]
+    }
+  </script>
+  
 
-            ga('create', 'UA-485423-8', 'auto');
-            ga('send', 'pageview');
-        </script> 
     </head>
 
     <body>
@@ -42,61 +136,110 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
                             <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Getting Started</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../documentation/" class="dropdown-item">Docs Hub</a>
+</li>
+            
 <li>
     <a href="../setup/" class="dropdown-item">Setup</a>
 </li>
+            
+<li>
+    <a href="../tutorial-building-an-atomic-register/" class="dropdown-item">Atomic Register Tutorial</a>
+</li>
+            
+<li>
+    <a href="../faq/" class="dropdown-item">FAQ</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Evaluation</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../why-microraft/" class="dropdown-item">Why MicroRaft?</a>
+</li>
+            
+<li>
+    <a href="../use-cases/" class="dropdown-item">Use Cases</a>
+</li>
+            
+<li>
+    <a href="../recipe-metadata-store/" class="dropdown-item">Metadata Store Recipe</a>
+</li>
+            
+<li>
+    <a href="../recipe-distributed-lock-service/" class="dropdown-item">Lock Service Recipe</a>
+</li>
+            
+<li>
+    <a href="../recipe-coordination-service/" class="dropdown-item">Coordination Recipe</a>
+</li>
+            
+<li>
+    <a href="../benchmarks/" class="dropdown-item">Benchmarks</a>
+</li>
+            
+<li>
+    <a href="../afloatdb/" class="dropdown-item">AfloatDB</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Operations</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="./" class="dropdown-item active">Main Abstractions</a>
 </li>
-                                    
+            
 <li>
     <a href="../configuration/" class="dropdown-item">Configuration</a>
 </li>
-                                    
+            
 <li>
-    <a href="../tutorial-building-an-atomic-register/" class="dropdown-item">Tutorial: Building an Atomic Register</a>
+    <a href="../resiliency-and-fault-tolerance/" class="dropdown-item">Resiliency</a>
 </li>
-                                    
-<li>
-    <a href="../resiliency-and-fault-tolerance/" class="dropdown-item">Resiliency and Fault Tolerance</a>
-</li>
-                                    
+            
 <li>
     <a href="../monitoring/" class="dropdown-item">Monitoring</a>
 </li>
-                                    
+            
 <li>
-    <a href="../afloatdb/" class="dropdown-item">AfloatDB - Distributed Key-Value Store</a>
+    <a href="../production-checklist/" class="dropdown-item">Production Checklist</a>
 </li>
-                                    
+            
 <li>
-    <a href="../../javadoc/0.8/index.html" class="dropdown-item">Javadoc 0.8</a>
+    <a href="../troubleshooting/" class="dropdown-item">Troubleshooting</a>
 </li>
-                                    
+            
 <li>
-    <a href="../../javadoc/0.7/index.html" class="dropdown-item">Javadoc 0.7</a>
+    <a href="../release-notes/" class="dropdown-item">Release Notes</a>
 </li>
-                                    
-<li>
-    <a href="../../javadoc/0.6/index.html" class="dropdown-item">Javadoc 0.6</a>
-</li>
-                                    
-<li>
-    <a href="../../javadoc/0.5/index.html" class="dropdown-item">Javadoc 0.5</a>
-</li>
-                                    
-<li>
-    <a href="https://github.com/MicroRaft/MicroRaft/releases" class="dropdown-item">Release Notes</a>
-</li>
-                                    
+            
 <li>
     <a href="../roadmap/" class="dropdown-item">Roadmap</a>
 </li>
+            
+<li>
+    <a href="https://javadoc.io/doc/io.microraft/microraft" class="dropdown-item">Javadoc</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -104,35 +247,29 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../blog/2023-04-05-queries/" class="dropdown-item">April 5, 2023 | Queries in MicroRaft</a>
+    <a href="../../blog/" class="dropdown-item">All Posts</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">February 15, 2023 | Log replication in MicroRaft</a>
+    <a href="../../blog/2023-04-05-queries/" class="dropdown-item">Queries in MicroRaft</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2022-11-12-implementing-the-log/" class="dropdown-item">November 12, 2022 | Implementing the log</a>
+    <a href="../../blog/2023-02-15-log-replication/" class="dropdown-item">Log replication in MicroRaft</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/" class="dropdown-item">September 8, 2021 | Today a Raft Follower, Tomorrow a Raft Leader</a>
+    <a href="../../blog/2022-11-12-implementing-the-log/" class="dropdown-item">Implementing the log</a>
 </li>
                                     
 <li>
-    <a href="../../blog/2021-09-03-introducing-microraft/" class="dropdown-item">September 3, 2021 | Introducing MicroRaft</a>
+    <a href="../../blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/" class="dropdown-item">Today a Raft Follower, Tomorrow a Raft Leader</a>
 </li>
                                     
 <li>
-    <a href="../../blog" class="dropdown-item">All Blog Posts</a>
+    <a href="../../blog/2021-09-03-introducing-microraft/" class="dropdown-item">Introducing MicroRaft</a>
 </li>
                                 </ul>
-                            </li>
-                            <li class="navitem">
-                                <a href="https://github.com/MicroRaft/MicroRaft" class="nav-link">Github</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="https://twitter.com/MicroRaft" class="nav-link">Twitter</a>
                             </li>
                         </ul>
 
@@ -142,16 +279,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../setup/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../configuration/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -170,64 +297,73 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#main-abstractions" class="nav-link">Main Abstractions</a>
-              <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#raftconfig" class="nav-link">RaftConfig</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftnode" class="nav-link">RaftNode</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftendpoint" class="nav-link">RaftEndpoint</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftrole" class="nav-link">RaftRole</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftnodestatus" class="nav-link">RaftNodeStatus</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#statemachine" class="nav-link">StateMachine</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftmodel-and-raftmodelfactory" class="nav-link">RaftModel and RaftModelFactory</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#transport" class="nav-link">Transport</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftstore-and-restoredraftstate" class="nav-link">RaftStore and RestoredRaftState</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftnodeexecutor" class="nav-link">RaftNodeExecutor</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#raftexception" class="nav-link">RaftException</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#how-to-run-a-raft-group" class="nav-link">How to run a Raft group</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#architectural-overview-of-a-raft-group" class="nav-link">Architectural overview of a Raft group</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
             <li class="nav-item" data-level="2"><a href="#what-is-next" class="nav-link">What is next?</a>
               <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -235,18 +371,53 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="main-abstractions">Main Abstractions</h1>
-<p>MicroRaft's main abstractions are listed below.</p>
+<div class="mr-doc-shell">
+  <section class="mr-doc-hero">
+    <h1 class="mr-page-title mr-doc-title">Main Abstractions</h1>
+    <p class="mr-page-summary">
+      This is the conceptual map of MicroRaft. Read it before the tutorial if
+      you want the names, responsibilities, and extension points to make sense
+      while you wire your own service.
+    </p>
+  </section>
+  <section class="mr-doc-summary">
+    <article class="mr-doc-summary-card">
+      <strong>Use this page when</strong>
+      <span>You already know you want MicroRaft and now need the integration vocabulary.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Focus on</strong>
+      <span><code>RaftNode</code> as the core runtime, then <code>StateMachine</code>, <code>Transport</code>, and <code>RaftStore</code> as your boundaries.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Read next</strong>
+      <span>Open the atomic register tutorial once the names and responsibilities below feel familiar.</span>
+    </article>
+  </section>
+
+  <section class="mr-doc-band">
+    <h2>How to read this page</h2>
+    <ul class="mr-doc-list">
+      <li><code>RaftNode</code> is the core runtime object you embed</li>
+      <li><code>StateMachine</code>, <code>Transport</code>, and <code>RaftStore</code> are the boundaries you implement around it</li>
+      <li><code>RaftConfig</code> controls protocol-level behavior and operational tradeoffs</li>
+    </ul>
+  </section>
+</div>
+
 <h2 id="raftconfig"><code>RaftConfig</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftConfig.java"
-target="_blank"><code>RaftConfig</code></a> contains configuration options related to the
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftConfig.java"><code>RaftConfig</code></a>
+contains configuration options related to the
 Raft consensus algorithm and MicroRaft's implementation. Please check the
-<a href="../../docs/configuration/">Configuration section</a> for details.</p>
+<a href="../configuration/">Configuration section</a> for details.</p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftConfig</code> is where protocol behavior becomes an operational tradeoff. This is the abstraction to revisit when you need to tune latency, elections, batching, or snapshots.</p>
+</div>
+
 <h2 id="raftnode"><code>RaftNode</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"
-target="_blank"><code>RaftNode</code></a> runs the Raft consensus algorithm as a member of
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"><code>RaftNode</code></a>
+runs the Raft consensus algorithm as a member of
 a Raft group. A Raft group is a cluster of <code>RaftNode</code> instances that behave as a
 <em>replicated state machine</em>. <code>RaftNode</code> contains APIs for replicating operations,
 performing queries, applying membership changes in the Raft group, handling Raft
@@ -256,9 +427,9 @@ can run in the same environment, distributed or even in a single JVM process,
 and they can be discriminated from each other with unique group ids. A single
 JVM process can run multiple Raft nodes that belong to different Raft groups or
 even the same Raft group.</p>
-<p><code>RaftNode</code>s execute the Raft consensus algorithm with the <a
-href="https://en.wikipedia.org/wiki/Actor_model" target="_blank">Actor
-model</a>. In this model, each <code>RaftNode</code> runs in a single-threaded manner. It
+<p><code>RaftNode</code>s execute the Raft consensus algorithm with the
+<a href="https://en.wikipedia.org/wiki/Actor_model">Actor model</a>. In this model, each
+<code>RaftNode</code> runs in a single-threaded manner. It
 uses a <code>RaftNodeExecutor</code> to sequentially handle API calls and <code>RaftMessage</code>
 objects sent by other <code>RaftNode</code>s. The communication between <code>RaftNode</code>s are
 implemented with the message-passing approach and abstracted away with the
@@ -268,37 +439,86 @@ networking, <code>RaftNode</code>s use <code>StateMachine</code> objects to exec
 committed operations, and <code>RaftStore</code> objects to persist internal Raft state to
 stable storage to be able to recover from crashes.</p>
 <p>All of these abstractions are explained below.</p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftNode</code> is the center of the system. It owns protocol execution, but depends on your service boundaries for persistence, transport, and state machine behavior.</p>
+</div>
+
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Runtime concepts</h3>
+    <ul class="mr-doc-list">
+      <li><code>RaftNode</code> is the core runtime you embed</li>
+      <li><code>RaftRole</code> and <code>RaftNodeStatus</code> describe cluster behavior over time</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Integration boundaries</h3>
+    <ul class="mr-doc-list">
+      <li><code>Transport</code> covers networking</li>
+      <li><code>StateMachine</code> covers deterministic business logic</li>
+      <li><code>RaftStore</code> covers durability and recovery</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Protocol surfaces</h3>
+    <ul class="mr-doc-list">
+      <li><code>RaftConfig</code> tunes timing and replication</li>
+      <li><code>RaftModel</code> and <code>RaftModelFactory</code> define on-wire and on-disk objects</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Use this page for</h3>
+    <ul class="mr-doc-list">
+      <li>learning the vocabulary before the tutorial</li>
+      <li>finding the right extension point for your integration</li>
+      <li>understanding what MicroRaft does not implement for you</li>
+    </ul>
+  </article>
+</div>
+
 <h2 id="raftendpoint"><code>RaftEndpoint</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftEndpoint.java"
-target="_blank"><code>RaftEndpoint</code></a> represents an endpoint that participates to
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftEndpoint.java"><code>RaftEndpoint</code></a>
+represents an endpoint that participates to
 at least one Raft group and executes the Raft consensus algorithm with a
 <code>RaftNode</code>.</p>
 <p><code>RaftNode</code> differentiates members of a Raft group with a unique id. MicroRaft
 users need to provide a unique id for each <code>RaftEndpoint</code>. Other than this
 information, <code>RaftEndpoint</code> implementations can contain custom fields, such as
 network addresses and tags, to be utilized by <code>Transport</code> implementations.</p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftEndpoint</code> is identity, not business logic. Keep it stable and serializable enough for your transport and discovery story.</p>
+</div>
+
 <h2 id="raftrole"><code>RaftRole</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftRole.java"
-target="_blank"><code>RaftRole</code></a> denotes the roles of <code>RaftNode</code>s as specified in
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftRole.java"><code>RaftRole</code></a>
+denotes the roles of <code>RaftNode</code>s as specified in
 the Raft consensus algorithm. Currently, MicroRaft implements the main roles
 defined in the paper: <code>LEADER</code>, <code>CANDIDATE</code>, and <code>FOLLOWER</code>. Moreover, it also
 implements an extension adding non-voting members: <code>LEARNER</code>. The <code>WITNESS</code> role
 is not implemented yet, but it's on the roadmap.</p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftRole</code> tells you how a node participates in protocol progress. It is the right lens for understanding elections, replication authority, and learner behavior.</p>
+</div>
+
 <h2 id="raftnodestatus"><code>RaftNodeStatus</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNodeStatus.java"
-target="_blank"><code>RaftNodeStatus</code></a> denotes the statuses of a <code>RaftNode</code> during
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNodeStatus.java"><code>RaftNodeStatus</code></a>
+denotes the statuses of a <code>RaftNode</code> during
 its own and its Raft group's lifecycle. A <code>RaftNode</code> is in the <code>INITIAL</code> status
 when it is created, and moves to the <code>ACTIVE</code> status when it is started with a
 <code>RaftNode.start()</code> call. It stays in this status until either a membership
 change is triggered in the Raft group, or either the Raft group or Raft node is
 terminated.</p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftNodeStatus</code> is broader than role. It helps you reason about lifecycle transitions such as startup, active service, termination, and membership-driven changes.</p>
+</div>
+
 <h2 id="statemachine"><code>StateMachine</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/statemachine/StateMachine.java"
-target="_blank"><code>StateMachine</code></a> enables users to implement arbitrary
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/statemachine/StateMachine.java"><code>StateMachine</code></a>
+enables users to implement arbitrary
 services, such as an atomic register or a key-value store, and execute
 operations on them. Currently, MicroRaft supports memory-based state machines
 with datasets in the gigabytes.</p>
@@ -312,107 +532,140 @@ operations.</p>
 submitted by <code>RaftNode</code>s, which include actual execution of committed
 user-supplied operations, <code>StateMachine</code> implementations do not need to be
 thread-safe.</p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>StateMachine</code> is where your product logic lives. The key contract is deterministic execution, not framework integration convenience.</p>
+</div>
+
 <h2 id="raftmodel-and-raftmodelfactory"><code>RaftModel</code> and <code>RaftModelFactory</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/RaftModel.java"
-target="_blank"><code>RaftModel</code></a> is the base interface for the objects that hit
-network and disk. There are 2 other interfaces extending this interface: <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/log/BaseLogEntry.java"
-target="_blank"><code>BaseLogEntry</code></a> and <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/RaftMessage.java"
-target="_blank"><code>RaftMessage</code></a>. <code>BaseLogEntry</code> is used for representing log
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/RaftModel.java"><code>RaftModel</code></a>
+is the base interface for the objects that hit network and disk. There are 2
+other interfaces extending this interface:
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/log/BaseLogEntry.java"><code>BaseLogEntry</code></a>
+and
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/RaftMessage.java"><code>RaftMessage</code></a>.
+<code>BaseLogEntry</code> is used for representing log
 and snapshot entries stored in the Raft log. <code>RaftMessage</code> is used for Raft RPCs
-and their responses. Please see the interfaces inside <a
-href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/main/java/io/microraft/model"
-target="_blank"><code>io.microraft.model</code></a> for more details. In addition, there is
-a <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/RaftModelFactory.java"
-target="_blank"><code>RaftModelFactory</code></a> interface for creating <code>RaftModel</code>
+and their responses. Please see the interfaces inside
+<a href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/main/java/io/microraft/model"><code>io.microraft.model</code></a>
+for more details. In addition, there is a
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/RaftModelFactory.java"><code>RaftModelFactory</code></a>
+interface for creating <code>RaftModel</code>
 objects with the builder pattern.</p>
 <p>MicroRaft comes with a default POJO-style implementation of these interfaces
-available under the <a
-href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/main/java/io/microraft/model/impl"
-target="_blank"><code>io.microraft.model.impl</code></a> package. Users of MicroRaft can
-define serialization &amp; deserialization strategies for the default implementation
-objects, or implement the <code>RaftModel</code> interfaces with a serialization framework,
-such as <a href="https://developers.google.com/protocol-buffers"
-target="_blank">Protocol Buffers</a>.  </p>
+available under the
+<a href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/main/java/io/microraft/model/impl"><code>io.microraft.model.impl</code></a>
+package. Users of MicroRaft can define serialization &amp; deserialization
+strategies for the default implementation objects, or implement the
+<code>RaftModel</code> interfaces with a serialization framework, such as
+<a href="https://developers.google.com/protocol-buffers">Protocol Buffers</a>.  </p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftModel</code> and <code>RaftModelFactory</code> define the objects that cross network and storage boundaries. Reach for them when the default POJO model is not enough for your serialization stack.</p>
+</div>
+
 <h2 id="transport"><code>Transport</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/transport/Transport.java"
-target="_blank"><code>Transport</code></a> is used for communicating Raft nodes with each
-other. <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/transport/Transport.java"
-target="_blank"><code>Transport</code></a> implementations must be able to serialize <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/RaftMessage.java"
-target="_blank"><code>RaftMessage</code></a> objects created by <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/RaftModelFactory.java"
-target="_blank"><code>RaftModelFactory</code></a>. MicroRaft requires a minimum set of
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/transport/Transport.java"><code>Transport</code></a>
+is used for communicating Raft nodes with each other.
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/transport/Transport.java"><code>Transport</code></a>
+implementations must be able to serialize
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/RaftMessage.java"><code>RaftMessage</code></a>
+objects created by
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/RaftModelFactory.java"><code>RaftModelFactory</code></a>.
+MicroRaft requires a minimum set of
 functionality for networking. There are only two methods in this interface, one
-for sending a <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/RaftMessage.java"
-target="_blank"><code>RaftMessage</code></a> to a <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftEndpoint.java"
-target="_blank"><code>RaftEndpoint</code></a> and another one for checking reachability of
-a <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftEndpoint.java"
-target="_blank"><code>RaftEndpoint</code></a>.</p>
+for sending a
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/RaftMessage.java"><code>RaftMessage</code></a>
+to a
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftEndpoint.java"><code>RaftEndpoint</code></a>
+and another one for checking reachability of a
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftEndpoint.java"><code>RaftEndpoint</code></a>.</p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>Transport</code> is intentionally narrow. MicroRaft expects you to bring the networking system, but it keeps the required contract small.</p>
+</div>
+
 <h2 id="raftstore-and-restoredraftstate"><code>RaftStore</code> and <code>RestoredRaftState</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RaftStore.java"
-target="_blank"><code>RaftStore</code></a> is used for persisting the internal state of the
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RaftStore.java"><code>RaftStore</code></a>
+is used for persisting the internal state of the
 Raft consensus algorithm. Its implementations must provide the durability
 guarantees defined in the interface.</p>
 <p>If a <code>RaftNode</code> crashes, its persisted state could be read back from stable
-storage into a <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RestoredRaftState.java"
-target="_blank"><code>RestoredRaftState</code></a> object and the <code>RaftNode</code> could be
+storage into a
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RestoredRaftState.java"><code>RestoredRaftState</code></a>
+object and the <code>RaftNode</code> could be
 restored back. <code>RestoredRaftState</code> contains all the necessary information to
 recover <code>RaftNode</code> instances from crashes.</p>
-<p><img alt="" src="/img/info.png" style="height:25px;width:25px" /> <code>RaftStore</code> does not
-persist internal state of <code>StateMachine</code> implementations. Upon recovery, a
-<code>RaftNode</code> starts with an empty state of the state machine, discovers the
-current commit index and re-executes all the operations in the Raft log up to
-the commit index to re-populate the state machine.</p>
+<div class="mr-callout mr-callout-info">
+  <div class="mr-callout-title">Important</div>
+  <p><code>RaftStore</code> does not persist internal state of <code>StateMachine</code> implementations. Upon recovery, a <code>RaftNode</code> starts with an empty state machine, discovers the current commit index, and re-executes Raft log entries to rebuild state.</p>
+</div>
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftStore</code> covers protocol durability, not full application recovery. Your service still owns the broader persistence and replay story.</p>
+</div>
+
 <h2 id="raftnodeexecutor"><code>RaftNodeExecutor</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/RaftNodeExecutor.java"
-target="_blank"><code>RaftNodeExecutor</code></a> is used by <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"
-target="_blank"><code>RaftNode</code></a> to execute the Raft consensus algorithm with the
-<a href="https://en.wikipedia.org/wiki/Actor_model" target="_blank">Actor
-model</a>.</p>
-<p>A  <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"
-target="_blank"><code>RaftNode</code></a> runs by submitting tasks to its <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/RaftNodeExecutor.java"
-target="_blank"><code>RaftNodeExecutor</code></a>. All tasks submitted by a <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"
-target="_blank"><code>RaftNode</code></a> must be executed serially, with maintaining the
-<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html"
-target="_blank">happens-before relationship</a>, so that the Raft consensus
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/RaftNodeExecutor.java"><code>RaftNodeExecutor</code></a>
+is used by
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"><code>RaftNode</code></a>
+to execute the Raft consensus algorithm with the
+<a href="https://en.wikipedia.org/wiki/Actor_model">Actor model</a>.</p>
+<p>A
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"><code>RaftNode</code></a>
+runs by submitting tasks to its
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/RaftNodeExecutor.java"><code>RaftNodeExecutor</code></a>.
+All tasks submitted by a
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"><code>RaftNode</code></a>
+must be executed serially, with maintaining the
+<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html">happens-before relationship</a>,
+so that the Raft consensus
 algorithm and the user-provided state machine logic could be executed without
 synchronization.</p>
-<p>MicroRaft contains a default implementation, <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/impl/DefaultRaftNodeExecutor.java"
-target="_blank"><code>DefaultRaftNodeExecutor</code></a>. It internally uses a
+<p>MicroRaft contains a default implementation,
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/impl/DefaultRaftNodeExecutor.java"><code>DefaultRaftNodeExecutor</code></a>.
+It internally uses a
 single-threaded <code>ScheduledExecutorService</code> and should be suitable for most of
-the use-cases. Users of MicroRaft can provide their own <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/RaftNodeExecutor.java"
-target="_blank"><code>RaftNodeExecutor</code></a> implementations if they want to run <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"
-target="_blank"><code>RaftNode</code></a>s in their own threading system according to the
+the use-cases. Users of MicroRaft can provide their own
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/execution/RaftNodeExecutor.java"><code>RaftNodeExecutor</code></a>
+implementations if they want to run
+<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"><code>RaftNode</code></a>s
+in their own threading system according to the
 rules defined by MicroRaft.  </p>
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p><code>RaftNodeExecutor</code> is the concurrency boundary. Change it only if you need MicroRaft to live inside an existing execution model you already trust.</p>
+</div>
+
 <h2 id="raftexception"><code>RaftException</code></h2>
-<p><a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/RaftException.java"
-target="_blank"><code>RaftException</code></a> is the base class for Raft-related
-exceptions. MicroRaft defines a number of <a
-href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/main/java/io/microraft/exception"
-target="_blank">custom exceptions</a> to report some certain failure scenarios
+<p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/RaftException.java"><code>RaftException</code></a>
+is the base class for Raft-related exceptions. MicroRaft defines a number of
+<a href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/main/java/io/microraft/exception">custom exceptions</a>
+to report some certain failure scenarios
 to clients.</p>
-<hr />
+<div class="mr-section-break"><span>Running a Group</span></div>
+
 <h2 id="how-to-run-a-raft-group">How to run a Raft group</h2>
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Always required</h3>
+    <ul class="mr-doc-list">
+      <li>endpoint identity</li>
+      <li>state machine implementation</li>
+      <li>transport implementation</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Optional but common</h3>
+    <ul class="mr-doc-list">
+      <li>custom model serialization</li>
+      <li>durable <code>RaftStore</code></li>
+      <li>custom executor integration</li>
+    </ul>
+  </article>
+</div>
+
 <p>In order to run a Raft group (i.e., Raft cluster) using MicroRaft, we need to:</p>
 <ul>
 <li>
@@ -447,8 +700,8 @@ to clients.</p>
   about MicroRaft's fault tolerance capabilities.</p>
 </li>
 <li>
-<p><img alt="" src="/img/info.png" style="height:25px;width:25px" /> build a discovery and RPC
-  mechanism to replicate and commit operations on a Raft group. This is required
+<p>build a discovery and RPC mechanism to replicate and commit operations on a
+  Raft group. This is required
   because simplicity is the primary concern for MicroRaft's design philosophy.
   MicroRaft offers a minimum API set to cover the fundamental functionality and
   enables its users to implement higher-level abstractions, such as an RPC
@@ -456,26 +709,31 @@ to clients.</p>
   MicroRaft neither broadcasts the Raft group members to any external discovery
   system, nor integrates with any observability tool, but it exposes all
   necessary information, such as Raft group members, leader Raft endpoint, term,
-  commit index, via <a
-  href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/report/RaftNodeReport.java"
-  target="_blank"><code>RaftNodeReport</code></a>, which can be accessed via
-  <code>RaftNode.getReport()</code> and <a
-  href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/report/RaftNodeReportListener.java"
-  target="_blank"><code>RaftNodeReportListener</code></a>. We can use that information to
-  feed our discovery services and monitoring tools. Similarly, the public APIs
-  on <code>RaftNode</code> do not employ request routing or retry mechanisms. For instance,
-  if a client tries to replicate an operation via a follower or a candidate
-  <code>RaftNode</code>, <code>RaftNode</code> responds back with a <a
-  href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/NotLeaderException.java"
-  target="_blank"><code>NotLeaderException</code></a>, instead of internally forwarding the
-  operation to the leader <code>RaftNode</code>. <code>NotLeaderException</code> contains
+  commit index, via
+  <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/report/RaftNodeReport.java"><code>RaftNodeReport</code></a>,
+  which can be accessed via <code>RaftNode.getReport()</code> and
+  <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/report/RaftNodeReportListener.java"><code>RaftNodeReportListener</code></a>.
+  We can use that information to feed our discovery services and monitoring
+  tools. Similarly, the public APIs on <code>RaftNode</code> do not employ request routing
+  or retry mechanisms. For instance, if a client tries to replicate an
+  operation via a follower or a candidate <code>RaftNode</code>, <code>RaftNode</code> responds back
+  with a
+  <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/NotLeaderException.java"><code>NotLeaderException</code></a>,
+  instead of internally forwarding the operation to the leader <code>RaftNode</code>.
+  <code>NotLeaderException</code> contains
   <code>RaftEndpoint</code> of the current leader <code>RaftNode</code> so that clients can send their
   requests to it.</p>
 </li>
 </ul>
+<div class="mr-callout mr-callout-info">
+  <div class="mr-callout-title">Design boundary</div>
+  <p>MicroRaft gives you the consensus core. Discovery, request routing, retries, and observability wiring still belong to the service you build around it.</p>
+</div>
+
 <p>In the next section, we will build an atomic register on top of MicroRaft to
 demonstrate how to implement and use MicroRaft's main abstractions.</p>
-<hr />
+<div class="mr-section-break"><span>Architecture</span></div>
+
 <h2 id="architectural-overview-of-a-raft-group">Architectural overview of a Raft group</h2>
 <p>The following figure depicts an architectural overview of a Raft group based on
 the main abstractions explained above. Clients talk to the leader <code>RaftNode</code> for
@@ -488,8 +746,9 @@ persist Raft log entries and snapshots to stable storage. Last, once a log entry
 is committed, i.e, it is successfully replicated to the majority of the Raft
 group, its operation is passed to <code>StateMachine</code> for execution, and output of
 the execution is returned to the client by the leader <code>RaftNode</code>.</p>
-<p><img alt="Architectural overview of a Raft group" src="/img/microraft_architectural_overview.png" style="height:592px;width:800px" /></p>
-<hr />
+<p><img alt="Architectural overview of a Raft group" src="../../img/microraft_architectural_overview.png" style="height:592px;width:800px" /></p>
+<div class="mr-section-break"><span>Next Up</span></div>
+
 <h2 id="what-is-next">What is next?</h2>
 <p>In the <a href="../tutorial-building-an-atomic-register/">next section</a>, we will build an atomic
 register on top of MicroRaft.</p></div>
@@ -497,16 +756,107 @@ register on top of MicroRaft.</p></div>
         </div>
 
         <footer class="col-md-12">
-            <hr>
-                <p>MicroRaft, 2021. Open-sourced by <a href="https://twitter.com/metanet" target="_blank">Ensar Basri Kahveci</a>.<br/>MicroRaft is not affiliated, associated, endorsed by, or in any way officially connected with<br/>Facebook, or any of its subsidiaries or its affiliates.</p>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+  <div class="mr-site-footer" role="contentinfo">
+    <div class="mr-site-footer-inner">
+      
+      <nav class="mr-page-nav" aria-label="Page navigation">
+        
+        <a class="mr-page-nav-link is-previous" href="../afloatdb/">
+          <span class="mr-page-nav-label">Previous</span>
+          <span class="mr-page-nav-title">AfloatDB</span>
+        </a>
+        
+        
+        <a class="mr-page-nav-link is-next" href="../configuration/">
+          <span class="mr-page-nav-label">Next</span>
+          <span class="mr-page-nav-title">Configuration</span>
+        </a>
+        
+      </nav>
+      
+      
+      <div class="mr-page-nav-utility">
+        
+        <a class="mr-page-nav-utility-link" href="../documentation/">Back to docs hub</a>
+        
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="../configuration/">Up next in this section</a>
+        
+        
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="#top">Back to top</a>
+      </div>
+      
+      <section class="mr-site-footer-grid">
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Project</div>
+          <a href="../why-microraft/">Why MicroRaft?</a>
+          <a href="./">Main Abstractions</a>
+          <a href="../setup/">Setup</a>
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Community</div>
+          <a href="https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lIme2IaaQ" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-slack mr-site-footer-icon" aria-hidden="true"></span><span>Community Slack</span></a>
+          <a href="../../blog/">Blog</a>
+          <a href="../roadmap/">Roadmap</a>
+          <a href="../troubleshooting/">Troubleshooting</a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X / Twitter</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Releases</div>
+          <a href="../release-notes/">Release Notes</a>
+          <a href="../benchmarks/">Benchmarks</a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+          <a href="https://github.com/MicroRaft/MicroRaft/releases" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-tag mr-site-footer-icon" aria-hidden="true"></span><span>GitHub Releases</span></a>
+        </div>
+      </section>
+      <p class="mr-site-footer-note">Embeddable Java Raft for metadata, coordination, and control-plane services.</p>
+      <div class="mr-site-footer-meta">
+        <div class="mr-site-footer-meta-copy">Apache 2.0 licensed · Copyright MicroRaft</div>
+        <div class="mr-site-footer-meta-copy">Built for embeddable CP systems</div>
+        <div class="mr-site-footer-meta-links">
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X</span></a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noopener noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
         </footer>
+  
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../../js/base.js" defer></script>
         <script src="../../search/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var links = document.querySelectorAll("a[href]");
+
+      links.forEach(function (link) {
+        var href = link.getAttribute("href");
+
+        if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+          return;
+        }
+
+        try {
+          var url = new URL(href, window.location.href);
+
+          if (url.origin !== window.location.origin) {
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+          }
+        } catch (error) {
+          // Ignore malformed href values and leave them unchanged.
+        }
+      });
+    });
+  </script>
+
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
